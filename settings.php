@@ -59,7 +59,7 @@ $woo_fyfy_checkout_settings = [
         'title'       => __( 'Wallet Address', 'wc-gateway-fyfy' ),
         'type'        => 'text',
         'description' => __( 'The Fyfy address that your customers will pay to.', 'wc-gateway-fyfy' ),
-        'placeholder' => 'NQ...',
+        'placeholder' => 'FY...',
         'desc_tip'    => true,
         'class'       => 'required',
     ],
