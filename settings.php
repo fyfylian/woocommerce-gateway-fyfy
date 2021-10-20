@@ -50,7 +50,7 @@ $woo_fyfy_checkout_settings = [
     'section_fyfy' => [
         'title'       => 'Fyfy',
         'type'        => 'title',
-        /* translators: %s: Full crypo currency name, e.g. 'Fyfy', 'Bitcoin' or 'Ethereum' */
+        /* translators: %s: Full crypto currency name, e.g. 'Fyfy', 'Bitcoin' or 'Ethereum' */
         'description' => sprintf( __( 'All %s-related settings', 'wc-gateway-fyfy' ), 'Fyfy'),
         'class'       => 'section-fyfy',
     ],
@@ -111,9 +111,9 @@ $woo_fyfy_checkout_settings = [
     ],
 
     'fyfyx_api_key' => [
-        'title'       => __( 'FyfyX API Key', 'wc-gateway-fyfy' ),
+        'title'       => __( 'Fyfy API Key', 'wc-gateway-fyfy' ),
         'type'        => 'text',
-        'description' => __( 'Key for accessing the FyfyX exchange rate and chain monitoring service. Visit fyfyx.com to sign up for a key.', 'wc-gateway-fyfy' ),
+        'description' => __( 'Key for accessing the Fyfy exchange rate and chain monitoring service. Visit fyfy.io to sign up for a key.', 'wc-gateway-fyfy' ),
         'placeholder' => __( 'This field is required.', 'wc-gateway-fyfy' ),
         'desc_tip'    => true,
         'class'       => 'required',

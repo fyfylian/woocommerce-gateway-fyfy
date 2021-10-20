@@ -8,7 +8,7 @@
     "license": "Apache-2.0",
     "authors": [{
         "name": "Sören Schwert",
-        "email": "soeren@fyfy.com"
+        "email": "soeren@shop.fyfy.io"
     }],
     "mifyfyum-stability": "stable",
     "scripts": {

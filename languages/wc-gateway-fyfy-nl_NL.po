@@ -40,8 +40,8 @@ msgid "Fyfy"
 msgstr "Fyfy"
 
 #. Author URI of the plugin
-msgid "https://fyfy.com"
-msgstr "https://fyfy.com"
+msgid "https://shop.fyfy.io"
+msgstr "https://shop.fyfy.io"
 
 #: includes/bulk_actions.php:20
 msgid "Validate Transactions"

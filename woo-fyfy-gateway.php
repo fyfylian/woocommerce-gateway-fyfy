@@ -63,7 +63,7 @@ if ( $woo_fyfy_has_fiat ) {
 	if ( !( $woo_fyfy_has_https || $woo_fyfy_is_localhost ) ) {
 		function nq_show_no_https_error() {
 			/* translators: %s: Email address */
-			echo '<div class="notice notice-error"><p>'. __( 'To use <strong>Fyfy Pay Checkout</strong>, your store must run under HTTPS (SSL encrypted).', 'wc-gateway-fyfy' ) . '</p><em>' . sprintf( __( 'If you believe this error is a mistake, contact us at %s.', 'wc-gateway-fyfy' ), '<a href="mailto:info@fyfy.com">info@fyfy.com</a>' ) .'</em></p></div>';
+			echo '<div class="notice notice-error"><p>'. __( 'To use <strong>Fyfy Pay Checkout</strong>, your store must run under HTTPS (SSL encrypted).', 'wc-gateway-fyfy' ) . '</p><em>' . sprintf( __( 'If you believe this error is a mistake, contact us at %s.', 'wc-gateway-fyfy' ), '<a href="mailto:info@shop.fyfy.io">info@shop.fyfy.io</a>' ) .'</em></p></div>';
 		}
 		add_action( 'admin_notices', 'nq_show_no_https_error' );
 		return;
@@ -536,7 +536,7 @@ function wc_fyfy_gateway_init() {
 			$description = $this->get_description();
 			if ( $description ) {
 				echo wpautop( wptexturize( $description ) );
-				echo '<p><a href="https://fyfy.com" class="about_fyfy" target="_blank">' . esc_html__( 'What is Fyfy?', 'wc-gateway-fyfy' ) . '</a></p>';
+				echo '<p><a href="https://shop.fyfy.io" class="about_fyfy" target="_blank">' . esc_html__( 'What is Fyfy?', 'wc-gateway-fyfy' ) . '</a></p>';
 			}
 		}
 

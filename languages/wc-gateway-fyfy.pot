@@ -33,7 +33,7 @@ msgid "Fyfy"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "https://fyfy.com"
+msgid "https://shop.fyfy.io"
 msgstr ""
 
 #: includes/bulk_actions.php:20

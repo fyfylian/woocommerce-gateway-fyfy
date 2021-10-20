@@ -3,7 +3,7 @@
 # Translators:
 # Talleyrand <baptistekugener@wanadoo.fr>, 2019
 # Sören Schwert <hello@soerenschwert.de>, 2020
-# Matheo <matheo@fyfy.com>, 2020
+# Matheo <matheo@shop.fyfy.io>, 2020
 # 
 msgid ""
 msgstr ""
@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-gateway-fyfy\n"
 "POT-Creation-Date: 2021-01-25T10:27:25+00:00\n"
 "PO-Revision-Date: 2019-11-19 15:53+0000\n"
-"Last-Translator: Matheo <matheo@fyfy.com>, 2020\n"
+"Last-Translator: Matheo <matheo@shop.fyfy.io>, 2020\n"
 "Language-Team: French (https://www.transifex.com/fyfy-foundation/teams/110181/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,8 +39,8 @@ msgid "Fyfy"
 msgstr "Fyfy"
 
 #. Author URI of the plugin
-msgid "https://fyfy.com"
-msgstr "https://fyfy.com"
+msgid "https://shop.fyfy.io"
+msgstr "https://shop.fyfy.io"
 
 #: includes/bulk_actions.php:20
 msgid "Validate Transactions"

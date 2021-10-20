@@ -311,9 +311,9 @@
         static get DEFAULT_ENDPOINT() {
             const e = location.origin.split(".");
             switch (e.shift(), e.join(".")) {
-                case "fyfy.com":
+                case "shop.fyfy.io":
                     return "https://hub.fyfy.io";
-                case "fyfy-testnet.com":
+                case "fyfy-testnet.io":
                     return "https://hub.fyfy-testnet.io";
                 default:
                     return "http://localhost:8080"

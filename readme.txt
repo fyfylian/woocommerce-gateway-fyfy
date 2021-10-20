@@ -48,13 +48,13 @@ Check out the documentation, with a more in-depth [tutorial](https://fyfy.github
 
 You provide your wallet addresses in the WooCommerce admin panel and receive the crypto directly from your customer.
 
-If you are new to crypto, you can create a Bitcoin and Ethereum wallet with [Jaxx](https://jaxx.io) (a third-party application). For Fyfy, you don’t need to rely on third-parties and can create an address in just seconds and without the need to provide personal data, at [safe.fyfy.com](https://safe.fyfy.com).
+If you are new to crypto, you can create a Bitcoin and Ethereum wallet with [Jaxx](https://jaxx.io) (a third-party application). For Fyfy, you don’t need to rely on third-parties and can create an address in just seconds and without the need to provide personal data, at [safe.shop.fyfy.io](https://safe.shop.fyfy.io).
 
 = What Is Fyfy? =
 
 Fyfy is a blockchain project, FYFY is its cryptocurrency, designed for ease-of-use. Sending, receiving and storing FYFY is as easy as using Facebook. Creating an account is even easier.
 
-Give it a try: [fyfy.com](https://fyfy.com)
+Give it a try: [shop.fyfy.io](https://shop.fyfy.io)
 
 = Why Is This Plugin For Free? =
 
