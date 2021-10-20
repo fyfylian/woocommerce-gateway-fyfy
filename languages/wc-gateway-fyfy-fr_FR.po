@@ -97,16 +97,16 @@ msgstr[1] "Traitement de %dcommandes"
 msgid "The currency %s is not supported by Coingecko."
 msgstr "La devise %s n'est pas supportée par Coingecko."
 
-#: price_services/fyfyx.php:21 validation_services/fyfyx.php:20
+#: price_services/fyfy.php:21 validation_services/fyfy.php:20
 msgid "API key not set."
 msgstr "Clé API non définie."
 
-#: price_services/fyfyx.php:24 validation_services/fyfyx.php:23
+#: price_services/fyfy.php:24 validation_services/fyfy.php:23
 msgid "Invalid API key."
 msgstr "Clé API invalide."
 
 #. translators: %s: Uppercase three-letter currency code, e.g. PEN, SGD
-#: price_services/fyfyx.php:57
+#: price_services/fyfy.php:57
 msgid "The currency %s is not supported by FyfyX."
 msgstr "La devise %s n'est pas supportée par FyfyX."
 
@@ -242,10 +242,10 @@ msgstr "Clé API FyfyX"
 #: settings.php:116
 msgid ""
 "Key for accessing the FyfyX exchange rate and chain monitoring service. "
-"Visit fyfyx.com to sign up for a key."
+"Visit fyfy.com to sign up for a key."
 msgstr ""
 "Clé d'accès au service de surveillance FyfyX des taux de change et de la "
-"chaine. Visitez fyfyx.com pour obtenir une clé."
+"chaine. Visitez fyfy.com pour obtenir une clé."
 
 #: settings.php:117 settings.php:206
 msgid "This field is required."
@@ -472,7 +472,7 @@ msgid "Could not get the current blockchain height from %s."
 msgstr "Impossible d'obtenir la hauteur de la blockchain depuis %s."
 
 #: validation_services/blockstream.php:72 validation_services/etherscan.php:41
-#: validation_services/json_rpc_fyfy.php:65 validation_services/fyfyx.php:66
+#: validation_services/json_rpc_fyfy.php:65 validation_services/fyfy.php:66
 #: validation_services/fyfy_watch.php:60 woo-fyfy-gateway.php:672
 msgid "Invalid transaction hash."
 msgstr "Hash de transaction invalide."
@@ -500,7 +500,7 @@ msgstr "URL de l'API non défini."
 msgid "JSON-RPC replied:"
 msgstr "JSON-RPC a répondu :"
 
-#: validation_services/fyfyx.php:15
+#: validation_services/fyfy.php:15
 msgid "FyfyX can only be used for mainnet."
 msgstr "FyfyX ne peut être utilisé que sur le mainnet."
 

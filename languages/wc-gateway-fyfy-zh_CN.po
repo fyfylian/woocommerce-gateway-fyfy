@@ -94,16 +94,16 @@ msgstr[0] "正在处理%d个订单"
 msgid "The currency %s is not supported by Coingecko."
 msgstr "Coingecko不支持%s货币"
 
-#: price_services/fyfyx.php:21 validation_services/fyfyx.php:20
+#: price_services/fyfy.php:21 validation_services/fyfy.php:20
 msgid "API key not set."
 msgstr "未设置API密钥"
 
-#: price_services/fyfyx.php:24 validation_services/fyfyx.php:23
+#: price_services/fyfy.php:24 validation_services/fyfy.php:23
 msgid "Invalid API key."
 msgstr "无效的API密钥"
 
 #. translators: %s: Uppercase three-letter currency code, e.g. PEN, SGD
-#: price_services/fyfyx.php:57
+#: price_services/fyfy.php:57
 msgid "The currency %s is not supported by FyfyX."
 msgstr "FyfyX不支持%s货币"
 
@@ -228,8 +228,8 @@ msgstr "FyfyX API密钥"
 #: settings.php:116
 msgid ""
 "Key for accessing the FyfyX exchange rate and chain monitoring service. "
-"Visit fyfyx.com to sign up for a key."
-msgstr "获取FyfyX汇率和区块链监控服务的密钥，请访问fyfyx.com注册密钥"
+"Visit fyfy.com to sign up for a key."
+msgstr "获取FyfyX汇率和区块链监控服务的密钥，请访问fyfy.com注册密钥"
 
 #: settings.php:117 settings.php:206
 msgid "This field is required."
@@ -428,7 +428,7 @@ msgid "Could not get the current blockchain height from %s."
 msgstr "无法从%s获取当前的区块链高度"
 
 #: validation_services/blockstream.php:72 validation_services/etherscan.php:41
-#: validation_services/json_rpc_fyfy.php:65 validation_services/fyfyx.php:66
+#: validation_services/json_rpc_fyfy.php:65 validation_services/fyfy.php:66
 #: validation_services/fyfy_watch.php:60 woo-fyfy-gateway.php:672
 msgid "Invalid transaction hash."
 msgstr "无效的交易哈希"
@@ -456,7 +456,7 @@ msgstr "未设置API URL"
 msgid "JSON-RPC replied:"
 msgstr "JSON-RPC回复："
 
-#: validation_services/fyfyx.php:15
+#: validation_services/fyfy.php:15
 msgid "FyfyX can only be used for mainnet."
 msgstr "FyfyX仅可用于主网"
 

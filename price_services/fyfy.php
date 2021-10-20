@@ -3,7 +3,7 @@ include_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'interface.php' );
 
 class WC_Gateway_Fyfy_Price_Service_Fyfyx implements WC_Gateway_Fyfy_Price_Service_Interface {
 
-    private $api_endpoint = 'https://api.fyfyx.com/';
+    private $api_endpoint = 'https://api.fyfy.com/';
     private $api_key = false;
 
     /**
@@ -16,7 +16,7 @@ class WC_Gateway_Fyfy_Price_Service_Fyfyx implements WC_Gateway_Fyfy_Price_Servi
     public function __construct( $gateway ) {
         $this->gateway = $gateway;
 
-        $this->api_key = $gateway->get_option( 'fyfyx_api_key' );
+        $this->api_key = $gateway->get_option( 'fyfy_api_key' );
         if ( empty( $this->api_key ) ) {
             throw new Exception( __( 'API key not set.', 'wc-gateway-fyfy') );
         }
@@ -65,6 +65,6 @@ class WC_Gateway_Fyfy_Price_Service_Fyfyx implements WC_Gateway_Fyfy_Price_Servi
     }
 
     private function makeUrl( $path ) {
-        return 'https://api.fyfyx.com/' . $path . '?api_key=' . $this->api_key;
+        return 'https://api.fyfy.com/' . $path . '?api_key=' . $this->api_key;
     }
 }

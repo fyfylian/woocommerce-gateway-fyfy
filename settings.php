@@ -15,7 +15,7 @@ if ( $woo_fyfy_has_https ) {
 // List available price services here. The option value must match the file name.
 $woo_fyfy_price_services = [
     'coingecko' => 'Coingecko',
-    // 'fyfyx'    => 'FyfyX (Fyfy only)',
+    // 'fyfy'    => 'Fyfy (Fyfy only)',
 ];
 $woo_fyfy_price_service_default = 'coingecko';
 if ( in_array( get_option( 'woocommerce_currency' ), [ 'EUR', 'USD' ] ) ) {
@@ -50,7 +50,7 @@ $woo_fyfy_checkout_settings = [
     'section_fyfy' => [
         'title'       => 'Fyfy',
         'type'        => 'title',
-        /* translators: %s: Full crypto currency name, e.g. 'Fyfy', 'Bitcoin' or 'Ethereum' */
+        /* translators: %s: Full cryptocurrency name, e.g. 'Fyfy', 'Bitcoin' or 'Ethereum' */
         'description' => sprintf( __( 'All %s-related settings', 'wc-gateway-fyfy' ), 'Fyfy'),
         'class'       => 'section-fyfy',
     ],
@@ -79,9 +79,9 @@ $woo_fyfy_checkout_settings = [
         'default'     => 'fyfy_watch',
         'options'     => [
             // List available validation services here. The option value must match the file name.
-            'fyfy_watch'  => 'FYFYIQ.WATCH (Testnet & Mainnet)',
+            'fyfy_watch'  => 'FYFYIO.WATCH (Testnet & Mainnet)',
             'json_rpc_fyfy' => 'Fyfy JSON-RPC API (Network configured by Fyfy node)',
-            'fyfyx'       => 'FyfyX (Mainnet)',
+            'fyfy'       => 'Fyfy (Mainnet)',
         ],
         'desc_tip'    => true,
     ],
@@ -110,7 +110,7 @@ $woo_fyfy_checkout_settings = [
         'desc_tip'    => true,
     ],
 
-    'fyfyx_api_key' => [
+    'fyfy_api_key' => [
         'title'       => __( 'Fyfy API Key', 'wc-gateway-fyfy' ),
         'type'        => 'text',
         'description' => __( 'Key for accessing the Fyfy exchange rate and chain monitoring service. Visit fyfy.io to sign up for a key.', 'wc-gateway-fyfy' ),

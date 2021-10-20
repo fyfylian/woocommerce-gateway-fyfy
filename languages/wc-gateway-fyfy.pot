@@ -92,18 +92,18 @@ msgstr[1] ""
 msgid "The currency %s is not supported by Coingecko."
 msgstr ""
 
-#: price_services/fyfyx.php:21
-#: validation_services/fyfyx.php:20
+#: price_services/fyfy.php:21
+#: validation_services/fyfy.php:20
 msgid "API key not set."
 msgstr ""
 
-#: price_services/fyfyx.php:24
-#: validation_services/fyfyx.php:23
+#: price_services/fyfy.php:24
+#: validation_services/fyfy.php:23
 msgid "Invalid API key."
 msgstr ""
 
 #. translators: %s: Uppercase three-letter currency code, e.g. PEN, SGD
-#: price_services/fyfyx.php:57
+#: price_services/fyfy.php:57
 msgid "The currency %s is not supported by FyfyX."
 msgstr ""
 
@@ -214,7 +214,7 @@ msgid "FyfyX API Key"
 msgstr ""
 
 #: settings.php:116
-msgid "Key for accessing the FyfyX exchange rate and chain monitoring service. Visit fyfyx.com to sign up for a key."
+msgid "Key for accessing the FyfyX exchange rate and chain monitoring service. Visit fyfy.com to sign up for a key."
 msgstr ""
 
 #: settings.php:117
@@ -398,7 +398,7 @@ msgstr ""
 #: validation_services/blockstream.php:72
 #: validation_services/etherscan.php:41
 #: validation_services/json_rpc_fyfy.php:65
-#: validation_services/fyfyx.php:66
+#: validation_services/fyfy.php:66
 #: validation_services/fyfy_watch.php:60
 #: woo-fyfy-gateway.php:672
 msgid "Invalid transaction hash."
@@ -427,7 +427,7 @@ msgstr ""
 msgid "JSON-RPC replied:"
 msgstr ""
 
-#: validation_services/fyfyx.php:15
+#: validation_services/fyfy.php:15
 msgid "FyfyX can only be used for mainnet."
 msgstr ""
 

@@ -15,7 +15,7 @@ class WC_Gateway_Fyfy_Service_FyfyX implements WC_Gateway_Fyfy_Validation_Servic
             throw new Exception( __( 'FyfyX can only be used for mainnet.', 'wc-gateway-fyfy' ) );
         }
 
-        $this->api_key = $gateway->get_option( 'fyfyx_api_key' );
+        $this->api_key = $gateway->get_option( 'fyfy_api_key' );
         if ( empty( $this->api_key ) ) {
             throw new Exception( __( 'API key not set.', 'wc-gateway-fyfy' ) );
         }
@@ -153,7 +153,7 @@ class WC_Gateway_Fyfy_Service_FyfyX implements WC_Gateway_Fyfy_Validation_Servic
     }
 
     private function makeUrl( $path ) {
-        return 'https://api.fyfyx.com/' . $path . '?api_key=' . $this->api_key;
+        return 'https://api.fyfy.com/' . $path . '?api_key=' . $this->api_key;
     }
 }
 

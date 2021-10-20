@@ -72,14 +72,14 @@
     function toggle_common_fields() {
         // Disable all conditional fields
         var common_fields = [
-            '#woocommerce_fyfy_gateway_fyfyx_api_key',
+            '#woocommerce_fyfy_gateway_fyfy_api_key',
             // '#conditional_field_id',
         ];
         $(common_fields.join(',')).closest('tr').addClass('hidden');
 
         // Enable required fields
-        if (price_service === 'fyfyx' || validation_service === 'fyfyx') {
-            $('#woocommerce_fyfy_gateway_fyfyx_api_key')
+        if (price_service === 'fyfy' || validation_service === 'fyfy') {
+            $('#woocommerce_fyfy_gateway_fyfy_api_key')
                 .closest('tr').removeClass('hidden');
         }
     }

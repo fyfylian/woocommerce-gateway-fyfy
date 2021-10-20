@@ -98,16 +98,16 @@ msgstr[1] "%d bestellingen verwerken"
 msgid "The currency %s is not supported by Coingecko."
 msgstr "De valuta %s wordt niet ondersteund door Coingecko."
 
-#: price_services/fyfyx.php:21 validation_services/fyfyx.php:20
+#: price_services/fyfy.php:21 validation_services/fyfy.php:20
 msgid "API key not set."
 msgstr "API-sleutel niet ingesteld."
 
-#: price_services/fyfyx.php:24 validation_services/fyfyx.php:23
+#: price_services/fyfy.php:24 validation_services/fyfy.php:23
 msgid "Invalid API key."
 msgstr "API Key ongeldig"
 
 #. translators: %s: Uppercase three-letter currency code, e.g. PEN, SGD
-#: price_services/fyfyx.php:57
+#: price_services/fyfy.php:57
 msgid "The currency %s is not supported by FyfyX."
 msgstr "De valuta %s wordt niet ondersteund door FyfyX."
 
@@ -244,10 +244,10 @@ msgstr "FyfyX API Sleutel"
 #: settings.php:116
 msgid ""
 "Key for accessing the FyfyX exchange rate and chain monitoring service. "
-"Visit fyfyx.com to sign up for a key."
+"Visit fyfy.com to sign up for a key."
 msgstr ""
 "Sleutel voor toegang tot de FyfyX wisselkoers- en Chainbewakingsservice. "
-"Bezoek fyfyx.com om u aan te melden voor een sleutel."
+"Bezoek fyfy.com om u aan te melden voor een sleutel."
 
 #: settings.php:117 settings.php:206
 msgid "This field is required."
@@ -478,7 +478,7 @@ msgid "Could not get the current blockchain height from %s."
 msgstr "Kan de huidige blockchain hoogte niet ophalen van %s."
 
 #: validation_services/blockstream.php:72 validation_services/etherscan.php:41
-#: validation_services/json_rpc_fyfy.php:65 validation_services/fyfyx.php:66
+#: validation_services/json_rpc_fyfy.php:65 validation_services/fyfy.php:66
 #: validation_services/fyfy_watch.php:60 woo-fyfy-gateway.php:672
 msgid "Invalid transaction hash."
 msgstr "Ongeldige transactie hash."
@@ -506,7 +506,7 @@ msgstr "API URL niet ingesteld."
 msgid "JSON-RPC replied:"
 msgstr "JSON-RPC antwoordde:"
 
-#: validation_services/fyfyx.php:15
+#: validation_services/fyfy.php:15
 msgid "FyfyX can only be used for mainnet."
 msgstr "FyfyX kan alleen gebruikt worden voor het mainnet"
 
