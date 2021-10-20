@@ -1,7 +1,7 @@
-=== Cryptocurrency Checkout - Accept Bitcoin, Ethereum and Nimiq ===
+=== Pay Checkout - Accept Bitcoin, Ethereum and Fyfy ===
 
-Contributors: nimiq
-Tags: woocommerce, cryptocurrency, crypto, checkout, gateway, nimiq, nim, bitcoin, btc, ethereum, eth
+Contributors: fyfy
+Tags: woocommerce, cryptocurrency, crypto, checkout, gateway, fyfy, fyfy, bitcoin, btc, ethereum, eth
 Requires at least: 4.9
 Tested up to: 5.6
 Requires WooCommerce at least: 3.5
@@ -15,11 +15,11 @@ Receive crypto directly from your customers + easy integration + beautiful inter
 
 == Description ==
 
-Seamlessly integrate Bitcoin, Ethereum and Nimiq payments into your webshop. Receive the equivalent of your regular price in crypto directly in your wallet. Easy to integrate and free of charge. Beautifully designed and easy to use. Open source and decentralized.
+Seamlessly integrate Bitcoin, Ethereum and Fyfy payments into your webshop. Receive the equivalent of your regular price in crypto directly in your wallet. Easy to integrate and free of charge. Beautifully designed and easy to use. Open source and decentralized.
 
 **Features Include:**
 
-* Bitcoin, Ethereum and Nimiq support
+* Bitcoin, Ethereum and Fyfy support
 * Automatic conversion from supported store currencies like USD or EUR to crypto at latest market prices
 * Full order status feedback in your WooCommerce panel
 * Decentralized and non-proprietary
@@ -30,35 +30,35 @@ _This Plugin is just getting started. Additional features such as instant and de
 
 = How Does It Work? =
 
-1. The customer selects “Cryptocurrency Checkout” and is sent to the Nimiq Checkout page.
-2. Nimiq Cryptocurrency Checkout offers to take payments in Bitcoin, Ethereum or Nimiq.
+1. The customer selects “Pay Checkout” and is sent to the Fyfy Checkout page.
+2. Fyfy Pay Checkout offers to take payments in Bitcoin, Ethereum or Fyfy.
 3. The customer selects a cryptocurrency and pays. An order is created in the WooCommerce panel and set to 'on-hold' by the plugin.
 4. As soon as the transaction is confirmed on the blockchain, the plugin automatically updates the order status.
 
 = How To Integrate It? =
 
 1. Install and activate the plugin
-2. Find the **Nimiq Cryptocurrency Checkout** in your list of plugins and click 'Settings'
+2. Find the **Fyfy Pay Checkout** in your list of plugins and click 'Settings'
 3. Enter addresses and public keys of the currencies you want to accept
 4. Tell your customers about your new payment option!
 
-Check out the documentation, with a more in-depth [tutorial](https://nimiq.github.io/tutorials/wordpress-payment-plugin-installation).
+Check out the documentation, with a more in-depth [tutorial](https://fyfy.github.io/tutorials/wordpress-payment-plugin-installation).
 
 = Where Does The Crypto Go? =
 
 You provide your wallet addresses in the WooCommerce admin panel and receive the crypto directly from your customer.
 
-If you are new to crypto, you can create a Bitcoin and Ethereum wallet with [Jaxx](https://jaxx.io) (a third-party application). For Nimiq, you don’t need to rely on third-parties and can create an address in just seconds and without the need to provide personal data, at [safe.nimiq.com](https://safe.nimiq.com).
+If you are new to crypto, you can create a Bitcoin and Ethereum wallet with [Jaxx](https://jaxx.io) (a third-party application). For Fyfy, you don’t need to rely on third-parties and can create an address in just seconds and without the need to provide personal data, at [safe.fyfy.com](https://safe.fyfy.com).
 
-= What Is Nimiq? =
+= What Is Fyfy? =
 
-Nimiq is a blockchain project, NIM is its cryptocurrency, designed for ease-of-use. Sending, receiving and storing NIM is as easy as using Facebook. Creating an account is even easier.
+Fyfy is a blockchain project, FYFY is its cryptocurrency, designed for ease-of-use. Sending, receiving and storing FYFY is as easy as using Facebook. Creating an account is even easier.
 
-Give it a try: [nimiq.com](https://nimiq.com)
+Give it a try: [fyfy.com](https://fyfy.com)
 
 = Why Is This Plugin For Free? =
 
-We believe that cryptocurrencies are the future and will provide a better, more democratic and more open form of money. With this Checkout Plugin, we want to provide a tool for everyone interested in crypto. By providing BTC and ETH payments together with NIM, we wish to support cryptocurrencies in general while illustrating just how much more easy and convenient Nimiq is.
+We believe that cryptocurrencies are the future and will provide a better, more democratic and more open form of money. With this Checkout Plugin, we want to provide a tool for everyone interested in crypto. By providing BTC and ETH payments together with FYFY, we wish to support cryptocurrencies in general while illustrating just how much more easy and convenient Fyfy is.
 
 == Screenshots ==
 
@@ -94,7 +94,7 @@ We believe that cryptocurrencies are the future and will provide a better, more 
 
 * Display vendor markup (margin) in Checkout price tooltip for transparency
 * Accept one decimal number for the margin setting
-* Nimiq Hub compatibility update
+* Fyfy Hub compatibility update
 
 = 3.1.4 - 2020.03.26 =
 
@@ -118,11 +118,11 @@ We believe that cryptocurrencies are the future and will provide a better, more 
 = 3.1.0 - 2019.12.07 =
 
 * Add French translations
-* Add overlay to shop page when Nimiq Hub popup is open
+* Add overlay to shop page when Fyfy Hub popup is open
 
 = 3.0.0 - 2019.11.22 =
 
-* Now accepting Bitcoin, Ethereum and Nimiq payments!
+* Now accepting Bitcoin, Ethereum and Fyfy payments!
 * Huge usability improvements over previous versions.
 
 == Upgrade Notice ==
@@ -149,7 +149,7 @@ Display vendor markup (margin) in Checkout price tooltip for transparency.
 
 = 3.1.4 =
 
-Fix a problem that sometimes prevented Nimiq Checkout from opening correctly.
+Fix a problem that sometimes prevented Fyfy Checkout from opening correctly.
 
 = 3.1.3 =
 
@@ -165,12 +165,12 @@ Fixed popup overlay positioning and endless redirect payment loop.
 
 = 3.1.0 =
 
-Added French translations and an overlay when the Nimiq Hub popup is open.
+Added French translations and an overlay when the Fyfy Hub popup is open.
 
 = 3.0.0 =
 
-Nimiq Cryptocurrency Checkout now also supports accepting payments in Bitcoin and Ethereum! Update your settings to enable the new currencies.
+Fyfy Pay Checkout now also supports accepting payments in Bitcoin and Ethereum! Update your settings to enable the new currencies.
 
 == Acknowledgement ==
 
-This Nimiq payment gateway is based on skyverge's [WooCommerce Offline Gateway](https://github.com/bekarice/woocommerce-gateway-offline), which in turn forks the WooCommerce core "Cheque" payment gateway.
+This Fyfy payment gateway is based on skyverge's [WooCommerce Offline Gateway](https://github.com/bekarice/woocommerce-gateway-offline), which in turn forks the WooCommerce core "Cheque" payment gateway.

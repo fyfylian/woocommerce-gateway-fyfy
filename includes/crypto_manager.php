@@ -2,14 +2,14 @@
 
 class Crypto_Manager {
     const DECIMALS = [
-        'nim' => 5,
+        'fyfy' => 9,
         'btc' => 8,
         'eth' => 18,
     ];
 
     public static function iso_to_name( $iso ) {
         return [
-            'nim' => 'nimiq',
+            'fyfy' => 'fyfy',
             'btc' => 'bitcoin',
             'eth' => 'ethereum',
         ][ $iso ];
@@ -17,7 +17,7 @@ class Crypto_Manager {
 
     public static function name_to_iso( $name ) {
         return [
-            'nimiq' => 'nim',
+            'fyfy' => 'fyfy',
             'bitcoin' => 'btc',
             'ethereum' => 'eth',
         ][ $name ];
@@ -94,7 +94,7 @@ class Crypto_Manager {
     }
 
     public function get_accepted_cryptos() {
-        $accepted_cryptos = [ 'nim' ];
+        $accepted_cryptos = [ 'fyfy' ];
         if ( !empty( $this->gateway->get_option( 'bitcoin_xpub' ) ) ) $accepted_cryptos[] = 'btc';
         if ( !empty( $this->gateway->get_option( 'ethereum_xpub' ) ) ) $accepted_cryptos[] = 'eth';
         return $accepted_cryptos;
@@ -102,7 +102,7 @@ class Crypto_Manager {
 
     public function get_fees_per_byte() {
         return [
-            'nim' => $this->gateway->get_setting( 'fee_nim' ),
+            'fyfy' => $this->gateway->get_setting( 'fee_fyfy' ),
             'btc' => $this->gateway->get_setting( 'fee_btc' ),
             'eth' => strval( $this->gateway->get_setting( 'fee_eth' ) * 1e9 ), // Option is in Gwei
         ];
@@ -111,7 +111,7 @@ class Crypto_Manager {
     public function get_fees( $message_length ) {
         $perFees = $this->get_fees_per_byte();
         return [
-            'nim' => ( 166 + $message_length ) * $perFees[ 'nim' ],
+            'fyfy' => ( 166 + $message_length ) * $perFees[ 'fyfy' ],
             'btc' => 250 * $perFees[ 'btc' ],
             'eth' => [
                 'gas_limit' => 21000,

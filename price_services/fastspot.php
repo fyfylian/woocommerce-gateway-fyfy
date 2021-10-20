@@ -1,7 +1,7 @@
 <?php
 include_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'interface.php' );
 
-class WC_Gateway_Nimiq_Price_Service_Fastspot implements WC_Gateway_Nimiq_Price_Service_Interface {
+class WC_Gateway_Fyfy_Price_Service_Fastspot implements WC_Gateway_Fyfy_Price_Service_Interface {
 
     private $api_endpoint = 'https://api.estimate.fastspot.io/fast/v1';
     private $api_key = false;
@@ -9,7 +9,7 @@ class WC_Gateway_Nimiq_Price_Service_Fastspot implements WC_Gateway_Nimiq_Price_
     /**
      * Initializes the validation service
      *
-     * @param {WC_Gateway_Nimiq} $gateway - A WC_Gateway_Nimiq class instance
+     * @param {WC_Gateway_Fyfy} $gateway - A WC_Gateway_Fyfy class instance
      * @return {void}
      */
     public function __construct( $gateway ) {

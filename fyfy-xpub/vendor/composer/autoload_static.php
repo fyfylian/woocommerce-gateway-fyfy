@@ -24,7 +24,7 @@ class ComposerStaticInitf38dd7bf910ade5fd72e09ef3328f74b
         ),
         'N' => 
         array (
-            'Nimiq\\' => 6,
+            'Fyfy\\' => 6,
         ),
         'E' => 
         array (
@@ -55,7 +55,7 @@ class ComposerStaticInitf38dd7bf910ade5fd72e09ef3328f74b
         array (
             0 => __DIR__ . '/..' . '/stephenhill/base58/src',
         ),
-        'Nimiq\\' => 
+        'Fyfy\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

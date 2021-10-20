@@ -1,33 +1,33 @@
 <?php
 
-$plugin_main_file = dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'woo-nimiq-gateway.php';
+$plugin_main_file = dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'woo-fyfy-gateway.php';
 require_once( $plugin_main_file );
 
-register_activation_hook( $plugin_main_file, 'wc_nimiq_start_validation_schedule' );
-register_deactivation_hook( $plugin_main_file, 'wc_nimiq_end_validation_schedule' );
-add_action( 'wc_nimiq_scheduled_validation', 'wc_nimiq_validate_orders' );
+register_activation_hook( $plugin_main_file, 'wc_fyfy_start_validation_schedule' );
+register_deactivation_hook( $plugin_main_file, 'wc_fyfy_end_validation_schedule' );
+add_action( 'wc_fyfy_scheduled_validation', 'wc_fyfy_validate_orders' );
 
-function wc_nimiq_start_validation_schedule() {
-    if ( ! as_next_scheduled_action( 'wc_nimiq_scheduled_validation' ) ) {
+function wc_fyfy_start_validation_schedule() {
+    if ( ! as_next_scheduled_action( 'wc_fyfy_scheduled_validation' ) ) {
         $next_quarter_hour = ceil(time() / (15 * 60)) * (15 * 60);
 
-        wc_nimiq_gateway_init();
-        $gateway = new WC_Gateway_Nimiq();
+        wc_fyfy_gateway_init();
+        $gateway = new WC_Gateway_Fyfy();
 
         $interval_minutes = intval( $gateway->get_setting( 'validation_interval' ) ) ?: 30;
         $interval = $interval_minutes * 60; // Convert to seconds
 
-        as_schedule_recurring_action( $next_quarter_hour, $interval, 'wc_nimiq_scheduled_validation' );
+        as_schedule_recurring_action( $next_quarter_hour, $interval, 'wc_fyfy_scheduled_validation' );
     }
 }
 
-function wc_nimiq_end_validation_schedule() {
-    as_unschedule_action( 'wc_nimiq_scheduled_validation' );
+function wc_fyfy_end_validation_schedule() {
+    as_unschedule_action( 'wc_fyfy_scheduled_validation' );
 }
 
-function wc_nimiq_validate_orders() {
+function wc_fyfy_validate_orders() {
     $logger = wc_get_logger();
-    $log_context = array( 'source' => 'wc-gateway-nimiq' );
+    $log_context = array( 'source' => 'wc-gateway-fyfy' );
 
     // Get all orders that are on-hold or pending, and have a crypto currency set
     $posts = get_posts( [
@@ -39,7 +39,7 @@ function wc_nimiq_validate_orders() {
     ] );
 
     /* translators: %d: Number of orders to process */
-    $logger->info( sprintf( _n( 'Processing %d order', 'Processing %d orders', count( $posts ), 'wc-gateway-nimiq' ), count( $posts ) ), $log_context );
+    $logger->info( sprintf( _n( 'Processing %d order', 'Processing %d orders', count( $posts ), 'wc-gateway-fyfy' ), count( $posts ) ), $log_context );
 
     if ( empty( $posts ) ) return;
 
@@ -50,7 +50,7 @@ function wc_nimiq_validate_orders() {
 
     // $logger->info( 'Processing IDs [' . implode( ', ', $ids ) . ']', $log_context );
 
-    $gateway = new WC_Gateway_Nimiq();
+    $gateway = new WC_Gateway_Fyfy();
     $validation_results = _do_bulk_validate_transactions( $gateway, $ids );
 
     if ( ! empty( $validation_results[ 'errors' ] ) ) {
@@ -61,5 +61,5 @@ function wc_nimiq_validate_orders() {
     }
 
     $count_orders_updated = intval( $validation_results[ 'changed' ] ?: 0 );
-    $logger->info( sprintf( _n( 'Updated %d order', 'Updated %d orders', $count_orders_updated, 'wc-gateway-nimiq' ), $count_orders_updated ) . '.', $log_context );
+    $logger->info( sprintf( _n( 'Updated %d order', 'Updated %d orders', $count_orders_updated, 'wc-gateway-fyfy' ), $count_orders_updated ) . '.', $log_context );
 }

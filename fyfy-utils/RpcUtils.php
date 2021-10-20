@@ -1,11 +1,11 @@
 <?php
 declare(strict_types = 1);
 
-namespace Nimiq\Utils;
+namespace Fyfy\Utils;
 
 include_once( 'JSONUtils.php' );
 
-use Nimiq\Utils\JSONUtils;
+use Fyfy\Utils\JSONUtils;
 
 class RpcUtils
 {

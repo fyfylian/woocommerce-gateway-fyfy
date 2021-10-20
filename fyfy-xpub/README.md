@@ -1,6 +1,6 @@
-# Nimiq XPub
+# Fyfy XPub
 
-[![Build Status](https://travis-ci.com/nimiq/php-xpub.svg?branch=master)](https://travis-ci.com/nimiq/php-xpub)
+[![Build Status](https://travis-ci.com/fyfy/php-xpub.svg?branch=master)](https://travis-ci.com/fyfy/php-xpub)
 
 A simple class to derive BTC and ETH extended public keys and addresses without GMP.
 Only the BCMath extension is required (but GMP is still used for faster calculations when available).
@@ -9,10 +9,10 @@ Supports `xpub`, `tpub`, `zpub` and `vpub` formats.
 
 ## Installation
 
-The Nimiq PHP Utilities are availabe via the [Packagist package registry](https://packagist.org/packages/nimiq/xpub) and can be installed with [Composer](https://getcomposer.org):
+The Fyfy PHP Utilities are availabe via the [Packagist package registry](https://packagist.org/packages/fyfy/xpub) and can be installed with [Composer](https://getcomposer.org):
 
 ```bash
-composer require nimiq/xpub
+composer require fyfy/xpub
 ```
 
 ### Requirements
@@ -24,7 +24,7 @@ composer require nimiq/xpub
 
 ```php
 # PSR-4 autoloading with composer
-use Nimiq\XPub;
+use Fyfy\XPub;
 
 # Create an XPub class instance from an xpub/tpub/zpub/vpub string.
 $xpub = XPub::fromString( 'xpub...' );

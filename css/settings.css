@@ -1,4 +1,4 @@
-.wc-settings-sub-title.section-nimiq,
+.wc-settings-sub-title.section-fyfy,
 .wc-settings-sub-title.section-bitcoin,
 .wc-settings-sub-title.section-bitcoin-disabled,
 .wc-settings-sub-title.section-ethereum,
@@ -9,7 +9,7 @@
     border-top: solid 1px rgba(35, 40, 45, 0.1);
 }
 
-.wc-settings-sub-title.section-nimiq::after,
+.wc-settings-sub-title.section-fyfy::after,
 .wc-settings-sub-title.section-bitcoin::after,
 .wc-settings-sub-title.section-bitcoin-disabled::after,
 .wc-settings-sub-title.section-ethereum::after,
@@ -24,8 +24,8 @@
     background-repeat: no-repeat;
 }
 
-.wc-settings-sub-title.section-nimiq::after {
-    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28"><defs><radialGradient id="nimiq-radial-gradient" cx="-166.58" cy="275.96" r="1.06" gradientTransform="matrix(-24.62, 0, 0, 21.78, -4075.39, -5984.84)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="%23ec991c"/><stop offset="1" stop-color="%23e9b213"/></radialGradient></defs><path fill="url(%23nimiq-radial-gradient)" d="M25.71,12.92,20.29,3.58A2.16,2.16,0,0,0,18.42,2.5H7.58A2.15,2.15,0,0,0,5.71,3.58L.29,12.92a2.14,2.14,0,0,0,0,2.16l5.42,9.34A2.15,2.15,0,0,0,7.58,25.5H18.42a2.16,2.16,0,0,0,1.87-1.08l5.42-9.34A2.14,2.14,0,0,0,25.71,12.92Z"/></svg>');
+.wc-settings-sub-title.section-fyfy::after {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28"><defs><radialGradient id="fyfy-radial-gradient" cx="-166.58" cy="275.96" r="1.06" gradientTransform="matrix(-24.62, 0, 0, 21.78, -4075.39, -5984.84)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="%23ec991c"/><stop offset="1" stop-color="%23e9b213"/></radialGradient></defs><path fill="url(%23fyfy-radial-gradient)" d="M25.71,12.92,20.29,3.58A2.16,2.16,0,0,0,18.42,2.5H7.58A2.15,2.15,0,0,0,5.71,3.58L.29,12.92a2.14,2.14,0,0,0,0,2.16l5.42,9.34A2.15,2.15,0,0,0,7.58,25.5H18.42a2.16,2.16,0,0,0,1.87-1.08l5.42-9.34A2.14,2.14,0,0,0,25.71,12.92Z"/></svg>');
 }
 
 .wc-settings-sub-title.section-bitcoin::after,
@@ -39,8 +39,8 @@
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="28" viewBox="0 0 18 28"><path class="cls-1" d="M9,21v7l9-12.08Z"/><path d="M9,10.36v9l9-5.09Z"/><path fill="%232f3030" d="M9,0V10.37l9,3.9Z"/><path fill="%23828384" d="M9,21v7L0,15.92Z"/><path fill="%23343535" d="M9,10.36v9L0,14.27Z"/><path fill="%23828384" d="M9,0V10.37l-9,3.9Z"/></svg> ');
 }
 
-.wc-settings-sub-title.section-bitcoin-disabled + p + table,
-.wc-settings-sub-title.section-ethereum-disabled + p + table {
+.wc-settings-sub-title.section-bitcoin-disabled+p+table,
+.wc-settings-sub-title.section-ethereum-disabled+p+table {
     display: none;
 }
 
@@ -58,21 +58,21 @@
     font-size: 0.9em;
 }
 
-.wc-settings-sub-title.section-advanced + p {
+.wc-settings-sub-title.section-advanced+p {
     margin-top: 0;
 }
 
-.wc-settings-sub-title.section-advanced + p + table {
+.wc-settings-sub-title.section-advanced+p+table {
     display: none;
 }
 
-.required + span {
+.required+span {
     margin-left: 8px;
     color: red;
     vertical-align: top;
 }
 
-#nimiq_shop_logo_preview {
+#fyfy_shop_logo_preview {
     display: inline-block;
     width: 50px;
     height: 50px;

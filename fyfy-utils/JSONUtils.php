@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Nimiq\Utils;
+namespace Fyfy\Utils;
 
 class JSONUtils
 {

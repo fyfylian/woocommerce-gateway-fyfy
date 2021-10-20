@@ -1,9 +1,9 @@
-# Copyright (C) 2021 Nimiq
-# This file is distributed under the same license as the Nimiq Cryptocurrency Checkout plugin.
+# Copyright (C) 2021 Fyfy
+# This file is distributed under the same license as the Fyfy Pay Checkout plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Nimiq Cryptocurrency Checkout 3.3.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-gateway-nimiq\n"
+"Project-Id-Version: Fyfy Pay Checkout 3.3.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-gateway-fyfy\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -12,28 +12,28 @@ msgstr ""
 "POT-Creation-Date: 2021-01-25T10:27:25+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
-"X-Domain: wc-gateway-nimiq\n"
+"X-Domain: wc-gateway-fyfy\n"
 
 #. Plugin Name of the plugin
-#: woo-nimiq-gateway.php:147
-#: woo-nimiq-gateway.php:173
-msgid "Nimiq Cryptocurrency Checkout"
+#: woo-fyfy-gateway.php:147
+#: woo-fyfy-gateway.php:173
+msgid "Fyfy Pay Checkout"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "https://github.com/nimiq/woocommerce-gateway-nimiq"
+msgid "https://github.com/fyfy/woocommerce-gateway-fyfy"
 msgstr ""
 
 #. Description of the plugin
-msgid "Let customers pay with Bitcoin, Ethereum and Nimiq"
+msgid "Let customers pay with Bitcoin, Ethereum and Fyfy"
 msgstr ""
 
 #. Author of the plugin
-msgid "Nimiq"
+msgid "Fyfy"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "https://nimiq.com"
+msgid "https://fyfy.com"
 msgstr ""
 
 #: includes/bulk_actions.php:20
@@ -92,24 +92,24 @@ msgstr[1] ""
 msgid "The currency %s is not supported by Coingecko."
 msgstr ""
 
-#: price_services/nimiqx.php:21
-#: validation_services/nimiqx.php:20
+#: price_services/fyfyx.php:21
+#: validation_services/fyfyx.php:20
 msgid "API key not set."
 msgstr ""
 
-#: price_services/nimiqx.php:24
-#: validation_services/nimiqx.php:23
+#: price_services/fyfyx.php:24
+#: validation_services/fyfyx.php:23
 msgid "Invalid API key."
 msgstr ""
 
 #. translators: %s: Uppercase three-letter currency code, e.g. PEN, SGD
-#: price_services/nimiqx.php:57
-msgid "The currency %s is not supported by NimiqX."
+#: price_services/fyfyx.php:57
+msgid "The currency %s is not supported by FyfyX."
 msgstr ""
 
 #. translators: %s: Full cryptocurrency name, 'Bitcoin' or 'Ethereum'
 #: settings.php:8
-msgid "You must install & enable either the <code>php-bcmath</code> or <code>php-gmp</code> extension to accept %s with <strong>Nimiq Cryptocurrency Checkout</strong>."
+msgid "You must install & enable either the <code>php-bcmath</code> or <code>php-gmp</code> extension to accept %s with <strong>Fyfy Pay Checkout</strong>."
 msgstr ""
 
 #: settings.php:22
@@ -121,7 +121,7 @@ msgid "Shop Logo"
 msgstr ""
 
 #: settings.php:30
-msgid "Display your logo in Nimiq Checkout by entering a URL to an image file here. The file must be on the same domain as your webshop. The image should be quadratic for best results."
+msgid "Display your logo in Fyfy Checkout by entering a URL to an image file here. The file must be on the same domain as your webshop. The image should be quadratic for best results."
 msgstr ""
 
 #: settings.php:34
@@ -144,7 +144,7 @@ msgstr ""
 msgid "You will receive email updates after your payment has been confirmed and when your order has been shipped."
 msgstr ""
 
-#. translators: %s: Full crypo currency name, e.g. 'Nimiq', 'Bitcoin' or 'Ethereum'
+#. translators: %s: Full crypo currency name, e.g. 'Fyfy', 'Bitcoin' or 'Ethereum'
 #: settings.php:54
 #: settings.php:126
 #: settings.php:168
@@ -156,7 +156,7 @@ msgid "Wallet Address"
 msgstr ""
 
 #: settings.php:61
-msgid "The Nimiq address that your customers will pay to."
+msgid "The Fyfy address that your customers will pay to."
 msgstr ""
 
 #: settings.php:68
@@ -178,7 +178,7 @@ msgid "Chain Monitoring Service"
 msgstr ""
 
 #: settings.php:78
-msgid "Which service should be used for monitoring the Nimiq blockchain."
+msgid "Which service should be used for monitoring the Fyfy blockchain."
 msgstr ""
 
 #: settings.php:90
@@ -186,7 +186,7 @@ msgid "JSON-RPC URL"
 msgstr ""
 
 #: settings.php:92
-msgid "Full URL (including port) of the Nimiq JSON-RPC server used to monitor the Nimiq blockchain."
+msgid "Full URL (including port) of the Fyfy JSON-RPC server used to monitor the Fyfy blockchain."
 msgstr ""
 
 #: settings.php:94
@@ -210,11 +210,11 @@ msgid "Password for the protected JSON-RPC service. (Optional)"
 msgstr ""
 
 #: settings.php:114
-msgid "NimiqX API Key"
+msgid "FyfyX API Key"
 msgstr ""
 
 #: settings.php:116
-msgid "Key for accessing the NimiqX exchange rate and chain monitoring service. Visit nimiqx.com to sign up for a key."
+msgid "Key for accessing the FyfyX exchange rate and chain monitoring service. Visit fyfyx.com to sign up for a key."
 msgstr ""
 
 #: settings.php:117
@@ -225,7 +225,7 @@ msgstr ""
 #. translators: 1: Currency full name (e.g. 'Bitcoin'), 2: Setting name
 #: settings.php:132
 #: settings.php:174
-#: woo-nimiq-gateway.php:855
+#: woo-fyfy-gateway.php:855
 msgid "Wallet Account Public Key"
 msgstr ""
 
@@ -294,7 +294,7 @@ msgid "Which service to use for fetching price information for currency conversi
 msgstr ""
 
 #: settings.php:237
-msgid "NIM Fee per Byte [Luna]"
+msgid "FYFY Fee per Byte [Luna]"
 msgstr ""
 
 #: settings.php:239
@@ -351,7 +351,7 @@ msgid "Checkout Behavior"
 msgstr ""
 
 #: settings.php:284
-msgid "How should the user be forwarded to Nimiq Checkout to finalize the payment process, as a popup or by being redirected?"
+msgid "How should the user be forwarded to Fyfy Checkout to finalize the payment process, as a popup or by being redirected?"
 msgstr ""
 
 #: settings.php:291
@@ -370,7 +370,7 @@ msgid "Required confirmations for %s"
 msgstr ""
 
 #: settings.php:302
-msgid "The number of confirmations required to accept a Nimiq transaction. Each confirmation takes 1 minute on average."
+msgid "The number of confirmations required to accept a Fyfy transaction. Each confirmation takes 1 minute on average."
 msgstr ""
 
 #. translators: %d: Number of blocks
@@ -390,24 +390,24 @@ msgstr ""
 
 #. translators: %s: Blockchain monitoring service
 #: validation_services/blockstream.php:49
-#: validation_services/json_rpc_nim.php:44
-#: validation_services/nimiq_watch.php:39
+#: validation_services/json_rpc_fyfy.php:44
+#: validation_services/fyfy_watch.php:39
 msgid "Could not get the current blockchain height from %s."
 msgstr ""
 
 #: validation_services/blockstream.php:72
 #: validation_services/etherscan.php:41
-#: validation_services/json_rpc_nim.php:65
-#: validation_services/nimiqx.php:66
-#: validation_services/nimiq_watch.php:60
-#: woo-nimiq-gateway.php:672
+#: validation_services/json_rpc_fyfy.php:65
+#: validation_services/fyfyx.php:66
+#: validation_services/fyfy_watch.php:60
+#: woo-fyfy-gateway.php:672
 msgid "Invalid transaction hash."
 msgstr ""
 
 #. translators: %s: Blockchain monitoring service
 #: validation_services/blockstream.php:177
 #: validation_services/etherscan.php:138
-#: validation_services/json_rpc_nim.php:101
+#: validation_services/json_rpc_fyfy.php:101
 msgid "Could not retrieve transaction information from %s."
 msgstr ""
 
@@ -419,124 +419,124 @@ msgstr ""
 msgid "Etherscan API key not set."
 msgstr ""
 
-#: validation_services/json_rpc_nim.php:16
+#: validation_services/json_rpc_fyfy.php:16
 msgid "API URL not set."
 msgstr ""
 
-#: validation_services/json_rpc_nim.php:40
+#: validation_services/json_rpc_fyfy.php:40
 msgid "JSON-RPC replied:"
 msgstr ""
 
-#: validation_services/nimiqx.php:15
-msgid "NimiqX can only be used for mainnet."
+#: validation_services/fyfyx.php:15
+msgid "FyfyX can only be used for mainnet."
 msgstr ""
 
-#: woo-nimiq-gateway.php:36
-msgid "To use <strong>Nimiq Cryptocurrency Checkout</strong>, you must have WooCommerce installed!"
+#: woo-fyfy-gateway.php:36
+msgid "To use <strong>Fyfy Pay Checkout</strong>, you must have WooCommerce installed!"
 msgstr ""
 
-#: woo-nimiq-gateway.php:45
-msgid "To use <strong>Nimiq Cryptocurrency Checkout</strong>, you need to use PHP >= 7.1."
-msgstr ""
-
-#. translators: %s: Email address
-#: woo-nimiq-gateway.php:65
-msgid "To use <strong>Nimiq Cryptocurrency Checkout</strong>, your store must run under HTTPS (SSL encrypted)."
+#: woo-fyfy-gateway.php:45
+msgid "To use <strong>Fyfy Pay Checkout</strong>, you need to use PHP >= 7.1."
 msgstr ""
 
 #. translators: %s: Email address
-#: woo-nimiq-gateway.php:65
+#: woo-fyfy-gateway.php:65
+msgid "To use <strong>Fyfy Pay Checkout</strong>, your store must run under HTTPS (SSL encrypted)."
+msgstr ""
+
+#. translators: %s: Email address
+#: woo-fyfy-gateway.php:65
 msgid "If you believe this error is a mistake, contact us at %s."
 msgstr ""
 
-#: woo-nimiq-gateway.php:81
-msgid "Your store uses a currency that is currently not supported by the <strong>Nimiq Cryptocurrency Checkout</strong>."
+#: woo-fyfy-gateway.php:81
+msgid "Your store uses a currency that is currently not supported by the <strong>Fyfy Pay Checkout</strong>."
 msgstr ""
 
-#: woo-nimiq-gateway.php:83
+#: woo-fyfy-gateway.php:83
 msgid "Find out which currencies are supported."
 msgstr ""
 
-#: woo-nimiq-gateway.php:120
+#: woo-fyfy-gateway.php:120
 msgid "Settings"
 msgstr ""
 
-#: woo-nimiq-gateway.php:148
-msgid "Receive payments in Bitcoin, Ethereum, and Nimiq. If you would like to be guided through the setup process, follow <a href=\"https://nimiq.github.io/tutorials/wordpress-payment-plugin-installation\">this tutorial.</a>"
+#: woo-fyfy-gateway.php:148
+msgid "Receive payments in Bitcoin, Ethereum, and Fyfy. If you would like to be guided through the setup process, follow <a href=\"https://fyfy.github.io/tutorials/wordpress-payment-plugin-installation\">this tutorial.</a>"
 msgstr ""
 
 #. translators: %s: Cryptocurrency name
-#: woo-nimiq-gateway.php:177
+#: woo-fyfy-gateway.php:177
 msgid "Pay with %s."
 msgstr ""
 
 #. translators: %1$s: Two cryptocurrency names separated by comma, %2$s: Cryptocurrency name
-#: woo-nimiq-gateway.php:179
+#: woo-fyfy-gateway.php:179
 msgid "Pay with %1$s or %2$s."
 msgstr ""
 
-#: woo-nimiq-gateway.php:419
-msgid "Cryptocurrency Checkout is temporarily not available. Please try reloading this page. (Issue: price service did not return any pricing information.)"
+#: woo-fyfy-gateway.php:419
+msgid "Pay Checkout is temporarily not available. Please try reloading this page. (Issue: price service did not return any pricing information.)"
 msgstr ""
 
-#: woo-nimiq-gateway.php:538
-msgid "What is Nimiq?"
+#: woo-fyfy-gateway.php:538
+msgid "What is Fyfy?"
 msgstr ""
 
-#: woo-nimiq-gateway.php:578
+#: woo-fyfy-gateway.php:578
 msgid "Javascript is required to pay with cryptocurrency. Please activate Javascript to continue."
 msgstr ""
 
 #. translators: Used on the payment button: "PAY WITH <crypto icons>"
-#: woo-nimiq-gateway.php:600
+#: woo-fyfy-gateway.php:600
 msgid "PAY WITH"
 msgstr ""
 
-#: woo-nimiq-gateway.php:608
+#: woo-fyfy-gateway.php:608
 msgid "Payment received"
 msgstr ""
 
 #. translators: %s: Error message
-#: woo-nimiq-gateway.php:642
-#: woo-nimiq-gateway.php:651
-#: woo-nimiq-gateway.php:654
-msgid "Nimiq Payment failed. (%s)."
+#: woo-fyfy-gateway.php:642
+#: woo-fyfy-gateway.php:651
+#: woo-fyfy-gateway.php:654
+msgid "Fyfy Payment failed. (%s)."
 msgstr ""
 
 #. translators: %s: Error message
-#: woo-nimiq-gateway.php:642
+#: woo-fyfy-gateway.php:642
 msgid "Response code not \"OK\""
 msgstr ""
 
-#: woo-nimiq-gateway.php:651
+#: woo-fyfy-gateway.php:651
 msgid "Could not decode Hub result"
 msgstr ""
 
-#: woo-nimiq-gateway.php:654
+#: woo-fyfy-gateway.php:654
 msgid "Hub result is empty"
 msgstr ""
 
-#: woo-nimiq-gateway.php:667
-msgid "You need to confirm the Nimiq payment first."
+#: woo-fyfy-gateway.php:667
+msgid "You need to confirm the Fyfy payment first."
 msgstr ""
 
-#: woo-nimiq-gateway.php:672
+#: woo-fyfy-gateway.php:672
 msgid "Please contact support with this error message."
 msgstr ""
 
-#: woo-nimiq-gateway.php:758
+#: woo-fyfy-gateway.php:758
 msgid "Waiting for transaction to be validated."
 msgstr ""
 
-#: woo-nimiq-gateway.php:780
-msgid "You must fill in your store's Nimiq address to be able to accept payments in NIM."
+#: woo-fyfy-gateway.php:780
+msgid "You must fill in your store's Fyfy address to be able to accept payments in FYFY."
 msgstr ""
 
-#: woo-nimiq-gateway.php:782
-msgid "Set your Nimiq address here."
+#: woo-fyfy-gateway.php:782
+msgid "Set your Fyfy address here."
 msgstr ""
 
 #. translators: 1: Currency full name (e.g. 'Bitcoin'), 2: Setting name
-#: woo-nimiq-gateway.php:855
+#: woo-fyfy-gateway.php:855
 msgid "<strong>%1$s %2$s</strong> was not saved:"
 msgstr ""

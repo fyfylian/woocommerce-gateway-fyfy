@@ -10,9 +10,9 @@
 
         // Disable all non-common conditional fields
         var conditional_fields = [
-            '#woocommerce_nimiq_gateway_fee_nim',
-            '#woocommerce_nimiq_gateway_fee_btc',
-            '#woocommerce_nimiq_gateway_fee_eth',
+            '#woocommerce_fyfy_gateway_fee_fyfy',
+            '#woocommerce_fyfy_gateway_fee_btc',
+            '#woocommerce_fyfy_gateway_fee_eth',
             // '#conditional_field_id',
         ];
         $(conditional_fields.join(',')).closest('tr').addClass('hidden');
@@ -20,15 +20,15 @@
         // Enable service-specific fields
         switch (service_slug) {
             case 'coingecko':
-                $('#woocommerce_nimiq_gateway_fee_nim, ' +
-                  '#woocommerce_nimiq_gateway_fee_btc, ' +
-                  '#woocommerce_nimiq_gateway_fee_eth')
+                $('#woocommerce_fyfy_gateway_fee_fyfy, ' +
+                        '#woocommerce_fyfy_gateway_fee_btc, ' +
+                        '#woocommerce_fyfy_gateway_fee_eth')
                     .closest('tr').removeClass('hidden');
                 break;
             case 'fastspot':
-                    break;
-            // case '':
-            //    $('#conditional_field_id').closest('tr').removeClass('hidden'); break;
+                break;
+                // case '':
+                //    $('#conditional_field_id').closest('tr').removeClass('hidden'); break;
         }
 
         price_service = service_slug;
@@ -44,25 +44,25 @@
 
         // Disable all non-common conditional fields
         var conditional_fields = [
-            '#woocommerce_nimiq_gateway_jsonrpc_nimiq_url',
-            '#woocommerce_nimiq_gateway_jsonrpc_nimiq_username',
-            '#woocommerce_nimiq_gateway_jsonrpc_nimiq_password',
+            '#woocommerce_fyfy_gateway_jsonrpc_fyfy_url',
+            '#woocommerce_fyfy_gateway_jsonrpc_fyfy_username',
+            '#woocommerce_fyfy_gateway_jsonrpc_fyfy_password',
             // '#conditional_field_id',
         ];
         $(conditional_fields.join(',')).closest('tr').addClass('hidden');
 
         // Enable service-specific fields
         switch (service_slug) {
-            case 'nimiq_watch':
+            case 'fyfy_watch':
                 break;
-            case 'json_rpc_nim':
-                $('#woocommerce_nimiq_gateway_jsonrpc_nimiq_url, ' +
-                  '#woocommerce_nimiq_gateway_jsonrpc_nimiq_username, ' +
-                  '#woocommerce_nimiq_gateway_jsonrpc_nimiq_password')
+            case 'json_rpc_fyfy':
+                $('#woocommerce_fyfy_gateway_jsonrpc_fyfy_url, ' +
+                        '#woocommerce_fyfy_gateway_jsonrpc_fyfy_username, ' +
+                        '#woocommerce_fyfy_gateway_jsonrpc_fyfy_password')
                     .closest('tr').removeClass('hidden');
                 break;
-            // case '':
-            //    $('#conditional_field_id').closest('tr').removeClass('hidden'); break;
+                // case '':
+                //    $('#conditional_field_id').closest('tr').removeClass('hidden'); break;
         }
 
         validation_service = service_slug;
@@ -72,21 +72,21 @@
     function toggle_common_fields() {
         // Disable all conditional fields
         var common_fields = [
-            '#woocommerce_nimiq_gateway_nimiqx_api_key',
+            '#woocommerce_fyfy_gateway_fyfyx_api_key',
             // '#conditional_field_id',
         ];
         $(common_fields.join(',')).closest('tr').addClass('hidden');
 
         // Enable required fields
-        if (price_service === 'nimiqx' || validation_service === 'nimiqx') {
-            $('#woocommerce_nimiq_gateway_nimiqx_api_key')
+        if (price_service === 'fyfyx' || validation_service === 'fyfyx') {
+            $('#woocommerce_fyfy_gateway_fyfyx_api_key')
                 .closest('tr').removeClass('hidden');
         }
     }
 
     // Set up field toggle event handlers
-    const $price_service_select = $('#woocommerce_nimiq_gateway_price_service');
-    const $validation_service_select = $('#woocommerce_nimiq_gateway_validation_service_nim');
+    const $price_service_select = $('#woocommerce_fyfy_gateway_price_service');
+    const $validation_service_select = $('#woocommerce_fyfy_gateway_validation_service_fyfy');
 
     let price_service = $price_service_select.val();
     let validation_service = $validation_service_select.val();
@@ -102,28 +102,29 @@
     toggle_common_fields();
 
     // Add click listener to toggle advanced section
-    $('#woocommerce_nimiq_gateway_section_advanced').click(function() {
+    $('#woocommerce_fyfy_gateway_section_advanced').click(function() {
         console.log('boop')
-        $('#woocommerce_nimiq_gateway_section_advanced + p + table').toggle('fast');
+        $('#woocommerce_fyfy_gateway_section_advanced + p + table').toggle('fast');
     });
 
     // Add image preview to shop logo field
-    const $shop_logo_url = $('#woocommerce_nimiq_gateway_shop_logo_url');
+    const $shop_logo_url = $('#woocommerce_fyfy_gateway_shop_logo_url');
+
     function update_shop_logo_preview() {
         const src = $shop_logo_url.val() || $shop_logo_url.data('site-icon');
         console.log(src);
-        const $preview = $('#nimiq_shop_logo_preview');
+        const $preview = $('#fyfy_shop_logo_preview');
         if ($preview.length) {
             $preview.attr('src', src);
         } else {
-            $shop_logo_url.after('<img id="nimiq_shop_logo_preview" src="' + src + '">');
+            $shop_logo_url.after('<img id="fyfy_shop_logo_preview" src="' + src + '">');
         }
     }
     $shop_logo_url.on('input', update_shop_logo_preview);
     update_shop_logo_preview();
 
     // Add change listener for Bitcoin xpub
-    const $bitcoin_xpub = $('#woocommerce_nimiq_gateway_bitcoin_xpub');
+    const $bitcoin_xpub = $('#woocommerce_fyfy_gateway_bitcoin_xpub');
     $bitcoin_xpub.on('input', function() {
         const xpub = $bitcoin_xpub.val();
         if (!xpub) return;
@@ -137,9 +138,10 @@
             case 'vpub':
                 type = 'bip-84';
                 break;
-            default: break; // TODO Show error feedback to user
+            default:
+                break; // TODO Show error feedback to user
         }
-        $('#woocommerce_nimiq_gateway_bitcoin_xpub_type').val(type);
+        $('#woocommerce_fyfy_gateway_bitcoin_xpub_type').val(type);
     });
 
     // Add asterix to required fields

@@ -3,7 +3,7 @@
  * Register handlers for enabling the `Validate transactions' bulk action
  *
  * Displaying the admin notices for the bulk action's result is a bit tricky:
- * Because Wordpress is doing an automatic redirect after the bulk action has
+ * Because WordPress is doing an automatic redirect after the bulk action has
  * completed, we loose every 'admin_notice' wp-action that we add before that.
  * Thus we followed WooCommerce's implementation of handing the variables
  * needed to display the notices to the redirected page via the $_REQUEST
@@ -17,7 +17,7 @@ add_filter( 'handle_bulk_actions-edit-shop_order', 'do_bulk_validate_transaction
 add_action( 'admin_notices', 'handle_bulk_admin_notices_after_redirect' );
 
 function register_bulk_actions( $actions ) {
-	$actions[ 'validate_transactions' ] = __( 'Validate Transactions', 'wc-gateway-nimiq' );
+	$actions[ 'validate_transactions' ] = __( 'Validate Transactions', 'wc-gateway-fyfy' );
 	return $actions;
 }
 
@@ -27,7 +27,7 @@ function do_bulk_validate_transactions( $redirect_to, $action, $ids ) {
 		return;
 	}
 
-	$gateway = new WC_Gateway_Nimiq();
+	$gateway = new WC_Gateway_Fyfy();
 	$validation_results = _do_bulk_validate_transactions( $gateway, $ids );
 
 	$redirect_to = add_query_arg( 'bulk_action', 'validated_transactions', $redirect_to );
@@ -50,7 +50,7 @@ function _do_bulk_validate_transactions( $gateway, $ids ) {
 
 	// Init validation services
 	$services = [];
-	$validation_options = ['validation_service_nim', 'validation_service_btc', 'validation_service_eth'];
+	$validation_options = ['validation_service_fyfy', 'validation_service_btc', 'validation_service_eth'];
 	foreach ($validation_options as $option) {
 		$service_slug = $gateway->get_option( $option );
 		include_once( dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'validation_services' . DIRECTORY_SEPARATOR . $service_slug . '.php' );
@@ -91,7 +91,7 @@ function _do_bulk_validate_transactions( $gateway, $ids ) {
 			$time_limit = strtotime( '-' . $gateway->get_setting( 'tx_wait_duration' ) . ' minutes' );
 			if ( $order_date < $time_limit ) {
 				// If order date is earlier, mark as failed
-				fail_order( $order, __( 'Transaction was not found.', 'wc-gateway-nimiq' ) );
+				fail_order( $order, __( 'Transaction was not found.', 'wc-gateway-fyfy' ) );
 				$count_orders_updated++;
 			}
 
@@ -112,39 +112,39 @@ function _do_bulk_validate_transactions( $gateway, $ids ) {
 		$expires = $order->get_meta( 'crypto_rate_expires' );
 		$interval = $gateway->get_setting( 'validation_interval' );
 		if ( $expires && empty( $transaction_hash ) && $expires < strtotime( '-' . $interval . ' minutes' ) ) {
-			fail_order( $order, __( 'Transaction arrived too late. (Quote expired)', 'wc-gateway-nimiq' ) );
+			fail_order( $order, __( 'Transaction arrived too late. (Quote expired)', 'wc-gateway-fyfy' ) );
 			$count_orders_updated++;
 			continue;
 		}
 
 		$order_sender_address = Order_Utils::get_order_sender_address( $order );
 		if ( !empty( $order_sender_address ) && $service->sender_address() !== $order_sender_address ) {
-			fail_order( $order, __( 'Sender of transaction does not match.', 'wc-gateway-nimiq' ) );
+			fail_order( $order, __( 'Sender of transaction does not match.', 'wc-gateway-fyfy' ) );
 			$count_orders_updated++;
 			continue;
 		}
 
 		if ( $service->recipient_address() !== Order_Utils::get_order_recipient_address( $order, $gateway ) ) {
-			fail_order( $order, __( 'Recipient of transaction does not match.', 'wc-gateway-nimiq' ) );
+			fail_order( $order, __( 'Recipient of transaction does not match.', 'wc-gateway-fyfy' ) );
 			$count_orders_updated++;
 			continue;
 		}
 
 		$order_total_crypto = Order_Utils::get_order_total_crypto( $order );
 		if ( Crypto_Manager::unit_compare( $service->value(), $order_total_crypto ) < 0 ) {
-			fail_order( $order, __( 'Transaction value is too small.', 'wc-gateway-nimiq' ) );
+			fail_order( $order, __( 'Transaction value is too small.', 'wc-gateway-fyfy' ) );
 			$count_orders_updated++;
 			continue;
 		}
 
-		if ( $currency === 'nim' ) {
+		if ( $currency === 'fyfy' ) {
 			// Validate transaction data to include correct shortened order hash
 			$message = $service->message();
 			// Look for the last pair of round brackets in the tx message
 			preg_match_all( '/.*\((.*?)\)/', $message, $matches, PREG_SET_ORDER );
 			$tx_order_key = end( $matches )[1];
 			if ( $tx_order_key !== $gateway->get_short_order_key( $order->get_order_key() ) ) {
-				fail_order( $order, __( 'Transaction order hash does not match.', 'wc-gateway-nimiq' ) );
+				fail_order( $order, __( 'Transaction order hash does not match.', 'wc-gateway-fyfy' ) );
 				$count_orders_updated++;
 				continue;
 			}
@@ -159,7 +159,7 @@ function _do_bulk_validate_transactions( $gateway, $ids ) {
 				$order_expiry = Order_Utils::get_order_hold_expiry( $order );
 				$interval = $gateway->get_setting( 'validation_interval' );
 				if ( $order_expiry && $order_expiry < strtotime( '+' . $interval . ' minutes' ) ) {
-					$order->update_status( 'on-hold', __( 'Valid transaction found, awaiting confirmation.', 'wc-gateway-nimiq' ) );
+					$order->update_status( 'on-hold', __( 'Valid transaction found, awaiting confirmation.', 'wc-gateway-fyfy' ) );
 				}
 			}
 
@@ -167,7 +167,7 @@ function _do_bulk_validate_transactions( $gateway, $ids ) {
 		}
 
 		// Mark payment as complete when confirmed
-		$order->add_order_note( __( 'Transaction validated and confirmed.', 'wc-gateway-nimiq' ) );
+		$order->add_order_note( __( 'Transaction validated and confirmed.', 'wc-gateway-fyfy' ) );
 		$order->delete_meta_data( 'checkout_csrf_token' );
 		$order->payment_complete();
 		$count_orders_updated++;
@@ -216,5 +216,5 @@ function handle_bulk_admin_notices_after_redirect() {
 	}
 
 	/* translators: %d: Number of updated orders */
-	echo '<div class="updated notice"><p>' . sprintf( _n( 'Updated %d order', 'Updated %d orders', $count_orders_updated, 'wc-gateway-nimiq' ), $count_orders_updated ) . '.</p></div>';
+	echo '<div class="updated notice"><p>' . sprintf( _n( 'Updated %d order', 'Updated %d orders', $count_orders_updated, 'wc-gateway-fyfy' ), $count_orders_updated ) . '.</p></div>';
 }

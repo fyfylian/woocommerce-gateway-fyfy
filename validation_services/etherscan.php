@@ -1,13 +1,13 @@
 <?php
 include_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'interface.php' );
 
-class WC_Gateway_Nimiq_Validation_Service_Etherscan implements WC_Gateway_Nimiq_Validation_Service_Interface {
+class WC_Gateway_Fyfy_Validation_Service_Etherscan implements WC_Gateway_Fyfy_Validation_Service_Interface {
     // Constants
     const API_TX_PER_PAGE = 25;
 
     /**
      * Initializes the validation service
-     * @param {WC_Gateway_Nimiq} $gateway - A WC_Gateway_Nimiq class instance
+     * @param {WC_Gateway_Fyfy} $gateway - A WC_Gateway_Fyfy class instance
      * @return {void}
      */
     public function __construct( $gateway ) {
@@ -38,13 +38,13 @@ class WC_Gateway_Nimiq_Validation_Service_Etherscan implements WC_Gateway_Nimiq_
 
         if ( !empty( $transaction_hash ) ) {
             if ( !ctype_xdigit( str_replace( '0x', '', $transaction_hash ) ) ) {
-                return new WP_Error('service', __( 'Invalid transaction hash.', 'wc-gateway-nimiq' ) );
+                return new WP_Error('service', __( 'Invalid transaction hash.', 'wc-gateway-fyfy' ) );
             }
         }
 
         $recipient_address = Order_Utils::get_order_recipient_address( $order, $gateway );
         if ( !ctype_xdigit( str_replace( '0x', '', $recipient_address ) ) ) {
-            return new WP_Error('service', __( 'Invalid merchant address.', 'wc-gateway-nimiq' ) );
+            return new WP_Error('service', __( 'Invalid merchant address.', 'wc-gateway-fyfy' ) );
         }
 
         // Fake result for the first while loop iteration
@@ -135,7 +135,7 @@ class WC_Gateway_Nimiq_Validation_Service_Etherscan implements WC_Gateway_Nimiq_
      */
     public function error() {
         if ( empty( $this->transaction ) ) {
-            return sprintf( __( 'Could not retrieve transaction information from %s.', 'wc-gateway-nimiq' ), 'Etherscan' );
+            return sprintf( __( 'Could not retrieve transaction information from %s.', 'wc-gateway-fyfy' ), 'Etherscan' );
         }
         return $this->transaction->error || false;
     }
@@ -234,11 +234,11 @@ class WC_Gateway_Nimiq_Validation_Service_Etherscan implements WC_Gateway_Nimiq_
 
     private function makeUrl( $query ) {
         if ( empty( $this->api_key ) ) {
-            throw new Exception( __( 'Etherscan API key not set.', 'wc-gateway-nimiq' ) );
+            throw new Exception( __( 'Etherscan API key not set.', 'wc-gateway-fyfy' ) );
         }
 
         return $this->api_url . $query . '&apikey=' . $this->api_key;
     }
 }
 
-$services['eth'] = new WC_Gateway_Nimiq_Validation_Service_Etherscan( $gateway );
+$services['eth'] = new WC_Gateway_Fyfy_Validation_Service_Etherscan( $gateway );

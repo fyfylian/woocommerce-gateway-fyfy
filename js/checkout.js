@@ -14,10 +14,10 @@
 
     // Status variables
     var awaiting_transaction_signing = false;
-    var nim_payment_received = false;
+    var fyfy_payment_received = false;
 
     var checkout_pay_order_hook = function(event) {
-        if (nim_payment_received) return true;
+        if (fyfy_payment_received) return true;
 
         event.preventDefault();
 
@@ -52,10 +52,10 @@
 
         awaiting_transaction_signing = false;
 
-        $('#nim_gateway_info_block').addClass('hidden');
-        $('#nim_payment_received_block').removeClass('hidden');
+        $('#fyfy_gateway_info_block').addClass('hidden');
+        $('#fyfy_payment_received_block').removeClass('hidden');
 
-        nim_payment_received = true;
+        fyfy_payment_received = true;
 
         $checkout_form.submit();
     }
@@ -71,10 +71,10 @@
     }
 
     // Store reference to payment button
-    var $pay_button = $('#nim_pay_button');
+    var $pay_button = $('#fyfy_pay_button');
 
     // Add submit event listener to form
-    var $checkout_form = $('form#pay_with_nimiq');
+    var $checkout_form = $('form#pay_with_fyfy');
     $checkout_form.on('submit', checkout_pay_order_hook);
 
     // Initialize HubApi

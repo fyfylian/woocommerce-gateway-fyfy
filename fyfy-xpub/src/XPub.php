@@ -1,6 +1,6 @@
 <?php
 
-namespace Nimiq;
+namespace Fyfy;
 
 use StephenHill\Base58;
 use Elliptic\EC;

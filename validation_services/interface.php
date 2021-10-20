@@ -1,9 +1,9 @@
 <?php
 
-interface WC_Gateway_Nimiq_Validation_Service_Interface {
+interface WC_Gateway_Fyfy_Validation_Service_Interface {
     /**
      * Initializes the validation service
-     * @param {WC_Gateway_Nimiq} $gateway - A WC_Gateway_Nimiq class instance
+     * @param {WC_Gateway_Fyfy} $gateway - A WC_Gateway_Fyfy class instance
      * @return {void}
      */
     public function __construct( $gateway );
@@ -12,7 +12,7 @@ interface WC_Gateway_Nimiq_Validation_Service_Interface {
      * Loads a transaction from the service
      * @param {string} $transaction_hash - Transaction hash as HEX string
      * @param {WP_Order} $order
-     * @param {WC_Gateway_Nimiq} $gateway
+     * @param {WC_Gateway_Fyfy} $gateway
      * @return {'NOT_FOUND'|'PAID'|'OVERPAID'|'UNDERPAID'|WP_Error}
      */
     public function load_transaction( $transaction_hash, $order, $gateway );

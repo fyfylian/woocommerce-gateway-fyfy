@@ -1,10 +1,10 @@
 <?php
 
-interface WC_Gateway_Nimiq_Price_Service_Interface {
+interface WC_Gateway_Fyfy_Price_Service_Interface {
     /**
      * Initializes the validation service
      *
-     * @param {WC_Gateway_Nimiq} $gateway - A WC_Gateway_Nimiq class instance
+     * @param {WC_Gateway_Fyfy} $gateway - A WC_Gateway_Fyfy class instance
      * @return {void}
      */
     public function __construct( $gateway );

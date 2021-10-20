@@ -10,7 +10,7 @@ return array(
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'StephenHill\\Benchmarks\\' => array($vendorDir . '/stephenhill/base58/benchmarks'),
     'StephenHill\\' => array($vendorDir . '/stephenhill/base58/src'),
-    'Nimiq\\' => array($baseDir . '/src'),
+    'Fyfy\\' => array($baseDir . '/src'),
     'Elliptic\\' => array($vendorDir . '/simplito/elliptic-php/lib'),
     'BitWasp\\Bech32\\' => array($vendorDir . '/bitwasp/bech32/src'),
     'BN\\' => array($vendorDir . '/simplito/bn-php/lib'),

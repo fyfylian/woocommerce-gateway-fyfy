@@ -1,8 +1,8 @@
 <?php
 
-include_once( dirname( dirname( __FILE__ ) ) . '/nimiq-xpub/vendor/autoload.php' );
+include_once( dirname( dirname( __FILE__ ) ) . '/fyfy-xpub/vendor/autoload.php' );
 
-use Nimiq\XPub;
+use Fyfy\XPub;
 
 class Address_Deriver {
     public function __construct( $gateway ) {
@@ -10,7 +10,7 @@ class Address_Deriver {
     }
 
     public function get_next_address( $currency ) {
-        if ( $currency === 'nim' ) return null; // TODO: Throw here instead?
+        if ( $currency === 'fyfy' ) return null; // TODO: Throw here instead?
 
         $reuse_eth_addresses = $this->gateway->get_option( 'reuse_eth_addresses', 'no' );
 

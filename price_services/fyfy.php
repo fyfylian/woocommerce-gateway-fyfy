@@ -1,27 +1,27 @@
 <?php
 include_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'interface.php' );
 
-class WC_Gateway_Nimiq_Price_Service_Nimiqx implements WC_Gateway_Nimiq_Price_Service_Interface {
+class WC_Gateway_Fyfy_Price_Service_Fyfyx implements WC_Gateway_Fyfy_Price_Service_Interface {
 
-    private $api_endpoint = 'https://api.nimiqx.com/';
+    private $api_endpoint = 'https://api.fyfyx.com/';
     private $api_key = false;
 
     /**
      * Initializes the validation service
      *
-     * @param {WC_Gateway_Nimiq} $gateway - A WC_Gateway_Nimiq class instance
+     * @param {WC_Gateway_Fyfy} $gateway - A WC_Gateway_Fyfy class instance
      *
      * @return {void}
      */
     public function __construct( $gateway ) {
         $this->gateway = $gateway;
 
-        $this->api_key = $gateway->get_option( 'nimiqx_api_key' );
+        $this->api_key = $gateway->get_option( 'fyfyx_api_key' );
         if ( empty( $this->api_key ) ) {
-            throw new Exception( __( 'API key not set.', 'wc-gateway-nimiq') );
+            throw new Exception( __( 'API key not set.', 'wc-gateway-fyfy') );
         }
         if ( !ctype_xdigit( $this->api_key ) ) {
-            throw new Exception( __( 'Invalid API key.', 'wc-gateway-nimiq') );
+            throw new Exception( __( 'Invalid API key.', 'wc-gateway-fyfy') );
         }
     }
 
@@ -54,17 +54,17 @@ class WC_Gateway_Nimiq_Price_Service_Nimiqx implements WC_Gateway_Nimiq_Price_Se
 
         if ( empty( $price ) ) {
             /* translators: %s: Uppercase three-letter currency code, e.g. PEN, SGD */
-            return new WP_Error( 'service', sprintf( __( 'The currency %s is not supported by NimiqX.', 'wc-gateway-nimiq' ), strtoupper( $currency ) ) );
+            return new WP_Error( 'service', sprintf( __( 'The currency %s is not supported by FyfyX.', 'wc-gateway-fyfy' ), strtoupper( $currency ) ) );
         };
 
         return [
             'prices' => [
-                'nim' => $price,
+                'fyfy' => $price,
             ],
         ];
     }
 
     private function makeUrl( $path ) {
-        return 'https://api.nimiqx.com/' . $path . '?api_key=' . $this->api_key;
+        return 'https://api.fyfyx.com/' . $path . '?api_key=' . $this->api_key;
     }
 }

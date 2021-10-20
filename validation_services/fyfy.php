@@ -1,17 +1,27 @@
 <?php
 include_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'interface.php' );
 
-class WC_Gateway_Nimiq_Service_Nimiqwatch implements WC_Gateway_Nimiq_Validation_Service_Interface {
+class WC_Gateway_Fyfy_Service_FyfyX implements WC_Gateway_Fyfy_Validation_Service_Interface {
     /**
      * Initializes the validation service
-     * @param {WC_Gateway_Nimiq} $gateway - A WC_Gateway_Nimiq class instance
+     * @param {WC_Gateway_Fyfy} $gateway - A WC_Gateway_Fyfy class instance
      * @return {void}
      */
     public function __construct( $gateway ) {
         $this->transaction = null;
         $this->head_height = null;
 
-        $this->api_domain = $gateway->get_option( 'network' ) === 'main' ? 'https://api.nimiq.watch' : 'https://test-api.nimiq.watch';
+        if ( $gateway->get_option( 'network' ) !== 'main' ) {
+            throw new Exception( __( 'FyfyX can only be used for mainnet.', 'wc-gateway-fyfy' ) );
+        }
+
+        $this->api_key = $gateway->get_option( 'fyfyx_api_key' );
+        if ( empty( $this->api_key ) ) {
+            throw new Exception( __( 'API key not set.', 'wc-gateway-fyfy' ) );
+        }
+        if ( !ctype_xdigit( $this->api_key ) ) {
+            throw new Exception( __( 'Invalid API key.', 'wc-gateway-fyfy' ) );
+        }
     }
 
     /**
@@ -23,23 +33,19 @@ class WC_Gateway_Nimiq_Service_Nimiqwatch implements WC_Gateway_Nimiq_Validation
             return $this->head_height;
         }
 
-        $api_response = wp_remote_get( $this->api_domain . '/latest/1' );
+        $api_response = wp_remote_get( $this->makeUrl( 'network-stats' ) );
 
         if ( is_wp_error( $api_response ) ) {
             return $api_response;
         }
 
-        $latest_block = json_decode( $api_response[ 'body' ] );
+        $network_stats = json_decode( $api_response[ 'body' ] );
 
-        if ( $latest_block->error ) {
-            return new WP_Error( 'service', $latest_block->error );
+        if ( $network_stats->error ) {
+            return new WP_Error( 'service', $network_stats->error );
         }
 
-        if ( empty( $latest_block ) ) {
-            return new WP_Error( 'service', sprintf( __( 'Could not get the current blockchain height from %s.', 'wc-gateway-nimiq' ), 'NIMIQ.WATCH') );
-        }
-
-        $this->head_height = $latest_block[ 0 ]->height;
+        $this->head_height = $network_stats->height;
         return $this->head_height;
     }
 
@@ -47,17 +53,17 @@ class WC_Gateway_Nimiq_Service_Nimiqwatch implements WC_Gateway_Nimiq_Validation
      * Loads a transaction from the service
      * @param {string} $transaction_hash - Transaction hash as HEX string
      * @param {WP_Order} $order
-     * @param {WC_Gateway_Nimiq} $gateway
+     * @param {WC_Gateway_Fyfy} $gateway
      * @return {'NOT_FOUND'|'PAID'|'OVERPAID'|'UNDERPAID'|WP_Error}
      */
     public function load_transaction( $transaction_hash, $order, $gateway ) {
         $this->transaction = null;
 
-        // Automatic transaction finding is not yet available for Nimiq
+        // Automatic transaction finding is not yet available for Fyfy
         if ( empty( $transaction_hash ) ) return 'NOT_FOUND';
 
         if ( !ctype_xdigit( $transaction_hash ) ) {
-            return new WP_Error('service', __( 'Invalid transaction hash.', 'wc-gateway-nimiq' ) );
+            return new WP_Error('service', __( 'Invalid transaction hash.', 'wc-gateway-fyfy' ) );
         }
 
         $head_height = $this->blockchain_height();
@@ -65,16 +71,19 @@ class WC_Gateway_Nimiq_Service_Nimiqwatch implements WC_Gateway_Nimiq_Validation
             return $head_height;
         }
 
-        // Convert HEX hash into base64
-        $transaction_hash = urlencode( base64_encode( pack( 'H*', $transaction_hash ) ) );
-
-        $api_response = wp_remote_get( $this->api_domain . '/transaction/' . $transaction_hash );
+        $api_response = wp_remote_get( $this->makeUrl( 'transaction/' . $transaction_hash ) );
 
         if ( is_wp_error( $api_response ) ) {
             return $api_response;
         }
 
-        $this->transaction = json_decode( $api_response[ 'body' ] );
+        $transaction = json_decode( $api_response[ 'body' ] );
+
+        if ( $transaction->error ) {
+            return new WP_Error( 'service', $transaction->error );
+        }
+
+        $this->transaction = $transaction;
         return $this->transaction_found() ? 'PAID' : 'NOT_FOUND';
     }
 
@@ -99,7 +108,7 @@ class WC_Gateway_Nimiq_Service_Nimiqwatch implements WC_Gateway_Nimiq_Validation
      * @return {string}
      */
     public function sender_address() {
-        return $this->transaction->sender_address;
+        return $this->transaction->from_address;
     }
 
     /**
@@ -107,7 +116,7 @@ class WC_Gateway_Nimiq_Service_Nimiqwatch implements WC_Gateway_Nimiq_Validation
      * @return {string}
      */
     public function recipient_address() {
-        return $this->transaction->receiver_address;
+        return $this->transaction->to_address;
     }
 
     /**
@@ -132,7 +141,7 @@ class WC_Gateway_Nimiq_Service_Nimiqwatch implements WC_Gateway_Nimiq_Validation
      * @return {number}
      */
     public function block_height() {
-        return $this->transaction->block_height;
+        return $this->transaction->height;
     }
 
     /**
@@ -142,6 +151,10 @@ class WC_Gateway_Nimiq_Service_Nimiqwatch implements WC_Gateway_Nimiq_Validation
     public function confirmations() {
         return $this->blockchain_height() + 1 - $this->block_height();
     }
+
+    private function makeUrl( $path ) {
+        return 'https://api.fyfyx.com/' . $path . '?api_key=' . $this->api_key;
+    }
 }
 
-$services['nim'] = new WC_Gateway_Nimiq_Service_Nimiqwatch( $gateway );
+$services['fyfy'] = new WC_Gateway_Fyfy_Service_FyfyX( $gateway );

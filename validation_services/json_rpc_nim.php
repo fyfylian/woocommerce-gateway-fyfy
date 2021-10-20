@@ -1,19 +1,19 @@
 <?php
 include_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'interface.php' );
 
-class WC_Gateway_Nimiq_Service_JsonRpcNimiq implements WC_Gateway_Nimiq_Validation_Service_Interface {
+class WC_Gateway_Fyfy_Service_JsonRpcFyfy implements WC_Gateway_Fyfy_Validation_Service_Interface {
     /**
      * Initializes the validation service
-     * @param {WC_Gateway_Nimiq} $gateway - A WC_Gateway_Nimiq class instance
+     * @param {WC_Gateway_Fyfy} $gateway - A WC_Gateway_Fyfy class instance
      * @®eturn {void}
      */
     public function __construct( $gateway ) {
         $this->transaction = null;
         $this->head_height = null;
 
-        $this->api_domain = $gateway->get_option( 'jsonrpc_nimiq_url' );
+        $this->api_domain = $gateway->get_option( 'jsonrpc_fyfy_url' );
         if ( empty( $this->api_domain ) ) {
-            throw new Exception( __( 'API URL not set.', 'wc-gateway-nimiq' ) );
+            throw new Exception( __( 'API URL not set.', 'wc-gateway-fyfy' ) );
         }
     }
 
@@ -37,11 +37,11 @@ class WC_Gateway_Nimiq_Service_JsonRpcNimiq implements WC_Gateway_Nimiq_Validati
         $block_number = json_decode( $api_response[ 'body' ] );
 
         if ( $block_number->error ) {
-            return new WP_Error( 'service', __( 'JSON-RPC replied:', 'wc-gateway-nimiq' ) . ' ' . $block_number->error->message );
+            return new WP_Error( 'service', __( 'JSON-RPC replied:', 'wc-gateway-fyfy' ) . ' ' . $block_number->error->message );
         }
 
         if ( empty( $block_number ) ) {
-            return new WP_Error( 'service', sprintf( __( 'Could not get the current blockchain height from %s.', 'wc-gateway-nimiq' ), 'JSON-RPC server') . ' (' . $api_response[ 'response' ][ 'code' ] . ': ' . $api_response[ 'response' ][ 'message' ] . ')' );
+            return new WP_Error( 'service', sprintf( __( 'Could not get the current blockchain height from %s.', 'wc-gateway-fyfy' ), 'JSON-RPC server') . ' (' . $api_response[ 'response' ][ 'code' ] . ': ' . $api_response[ 'response' ][ 'message' ] . ')' );
         }
 
         $this->head_height = $block_number->result;
@@ -52,17 +52,17 @@ class WC_Gateway_Nimiq_Service_JsonRpcNimiq implements WC_Gateway_Nimiq_Validati
      * Loads a transaction from the node
      * @param {string} $transaction_hash - Transaction hash as HEX string
      * @param {WP_Order} $order
-     * @param {WC_Gateway_Nimiq} $gateway
+     * @param {WC_Gateway_Fyfy} $gateway
      * @return {'NOT_FOUND'|'PAID'|'OVERPAID'|'UNDERPAID'|WP_Error}
      */
     public function load_transaction( $transaction_hash, $order, $gateway ) {
         $this->transaction = null;
 
-        // Automatic transaction finding is not yet available for Nimiq
+        // Automatic transaction finding is not yet available for Fyfy
         if ( empty( $transaction_hash ) ) return 'NOT_FOUND';
 
         if ( !ctype_xdigit( $transaction_hash ) ) {
-            return new WP_Error( 'connection', __( 'Invalid transaction hash.', 'wc-gateway-nimiq' ) );
+            return new WP_Error( 'connection', __( 'Invalid transaction hash.', 'wc-gateway-fyfy' ) );
         }
 
         $head_height = $this->blockchain_height();
@@ -72,8 +72,8 @@ class WC_Gateway_Nimiq_Service_JsonRpcNimiq implements WC_Gateway_Nimiq_Validati
 
         $call = '{"jsonrpc":"2.0","method":"getTransactionByHash","params":["' . $transaction_hash . '"],"id":42}';
 
-        $username = $gateway->get_option( 'jsonrpc_nimiq_username' );
-        $password = $gateway->get_option( 'jsonrpc_nimiq_password' );
+        $username = $gateway->get_option( 'jsonrpc_fyfy_username' );
+        $password = $gateway->get_option( 'jsonrpc_fyfy_password' );
         $headers = array( );
 
         if ( !empty( $username ) || !empty( $password ) ) {
@@ -98,7 +98,7 @@ class WC_Gateway_Nimiq_Service_JsonRpcNimiq implements WC_Gateway_Nimiq_Validati
         }
 
         if ( empty( $response ) ) {
-            return new WP_Error( 'service', sprintf( __( 'Could not retrieve transaction information from %s.', 'wc-gateway-nimiq' ), 'JSON-RPC server') . ' (' . $api_response[ 'response' ][ 'code' ] . ': ' . $api_response[ 'response' ][ 'message' ] . ')' );
+            return new WP_Error( 'service', sprintf( __( 'Could not retrieve transaction information from %s.', 'wc-gateway-fyfy' ), 'JSON-RPC server') . ' (' . $api_response[ 'response' ][ 'code' ] . ': ' . $api_response[ 'response' ][ 'message' ] . ')' );
         }
 
         $this->transaction = $response->result;
@@ -176,4 +176,4 @@ class WC_Gateway_Nimiq_Service_JsonRpcNimiq implements WC_Gateway_Nimiq_Validati
     }
 }
 
-$services['nim'] = new WC_Gateway_Nimiq_Service_JsonRpcNimiq( $gateway );
+$services['fyfy'] = new WC_Gateway_Fyfy_Service_JsonRpcFyfy( $gateway );

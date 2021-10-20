@@ -1,8 +1,8 @@
 <?php
 
 class Order_Utils {
-    public static function get_order_currency( $order, $fallback_to_nim = true ) {
-        return $order->get_meta( 'order_crypto_currency' ) ?: ( $fallback_to_nim ? 'nim' : null );
+    public static function get_order_currency( $order, $fallback_to_fyfy = true ) {
+        return $order->get_meta( 'order_crypto_currency' ) ?: ( $fallback_to_fyfy ? 'fyfy' : null );
     }
 
     public static function get_order_total_crypto( $order ) {
@@ -23,7 +23,7 @@ class Order_Utils {
     public static function get_order_recipient_address( $order, $gateway ) {
         $currency = self::get_order_currency( $order );
         switch( $currency ) {
-            case 'nim': return $gateway->get_option( 'nimiq_address' );
+            case 'fyfy': return $gateway->get_option( 'fyfy_address' );
             case 'btc': return $order->get_meta( 'order_' . $currency . '_address' );
             case 'eth': return strtolower( $order->get_meta( 'order_' . $currency . '_address' ) );
         }
@@ -31,7 +31,7 @@ class Order_Utils {
 
     public static function get_order_recipient_addresses( $order, $gateway ) {
         return [
-            'nim' => $gateway->get_option( 'nimiq_address' ),
+            'fyfy' => $gateway->get_option( 'fyfy_address' ),
             'btc' => $order->get_meta( 'order_btc_address' ),
             'eth' => strtolower( $order->get_meta( 'order_eth_address' ) ),
         ];

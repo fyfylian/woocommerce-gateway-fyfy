@@ -1,7 +1,7 @@
 <?php
 include_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'interface.php' );
 
-class WC_Gateway_Nimiq_Price_Service_Coingecko implements WC_Gateway_Nimiq_Price_Service_Interface {
+class WC_Gateway_Fyfy_Price_Service_Coingecko implements WC_Gateway_Fyfy_Price_Service_Interface {
 
     private $api_endpoint = 'https://api.coingecko.com/api/v3';
     private $api_key = false;
@@ -9,7 +9,7 @@ class WC_Gateway_Nimiq_Price_Service_Coingecko implements WC_Gateway_Nimiq_Price
     /**
      * Initializes the validation service
      *
-     * @param {WC_Gateway_Nimiq} $gateway - A WC_Gateway_Nimiq class instance
+     * @param {WC_Gateway_Fyfy} $gateway - A WC_Gateway_Fyfy class instance
      * @return {void}
      */
     public function __construct( $gateway ) {
@@ -31,7 +31,7 @@ class WC_Gateway_Nimiq_Price_Service_Coingecko implements WC_Gateway_Nimiq_Price
         $fiat_currency = strtolower( $shop_currency );
         $ids = array_map( function( $currency_iso ) {
             return [
-                'nim' => 'nimiq-2',
+                'fyfy' => 'fyfy',
                 'btc' => 'bitcoin',
                 'eth' => 'ethereum',
             ][ $currency_iso ];
@@ -51,7 +51,7 @@ class WC_Gateway_Nimiq_Price_Service_Coingecko implements WC_Gateway_Nimiq_Price
         $prices = [];
         foreach ( $result as $id => $price_object ) {
             $currency_iso = [
-                'nimiq-2' => 'nim',
+                'fyfy-2' => 'fyfy',
                 'bitcoin' => 'btc',
                 'ethereum' => 'eth',
             ][ $id ];
@@ -60,7 +60,7 @@ class WC_Gateway_Nimiq_Price_Service_Coingecko implements WC_Gateway_Nimiq_Price
 
             if ( empty( $price ) ) {
                 /* translators: %s: Uppercase three-letter currency code, e.g. PEN, SGD */
-                return new WP_Error( 'service', sprintf( __( 'The currency %s is not supported by Coingecko.', 'wc-gateway-nimiq' ), strtoupper( $fiat_currency ) ) );
+                return new WP_Error( 'service', sprintf( __( 'The currency %s is not supported by Coingecko.', 'wc-gateway-fyfy' ), strtoupper( $fiat_currency ) ) );
             };
 
             $prices[ $currency_iso ] = $price;

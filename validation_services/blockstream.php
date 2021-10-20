@@ -1,13 +1,13 @@
 <?php
 include_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'interface.php' );
 
-class WC_Gateway_Nimiq_Validation_Service_Blockstream implements WC_Gateway_Nimiq_Validation_Service_Interface {
+class WC_Gateway_Fyfy_Validation_Service_Blockstream implements WC_Gateway_Fyfy_Validation_Service_Interface {
     // Constants
     const API_TX_PER_PAGE = 25;
 
     /**
      * Initializes the validation service
-     * @param {WC_Gateway_Nimiq} $gateway - A WC_Gateway_Nimiq class instance
+     * @param {WC_Gateway_Fyfy} $gateway - A WC_Gateway_Fyfy class instance
      * @return {void}
      */
     public function __construct( $gateway ) {
@@ -46,7 +46,7 @@ class WC_Gateway_Nimiq_Validation_Service_Blockstream implements WC_Gateway_Nimi
 
         if ( empty( $latest_block ) ) {
             /* translators: %s: Blockchain monitoring service */
-            return new WP_Error( 'service', sprintf( __( 'Could not get the current blockchain height from %s.', 'wc-gateway-nimiq' ), 'Blockstream') );
+            return new WP_Error( 'service', sprintf( __( 'Could not get the current blockchain height from %s.', 'wc-gateway-fyfy' ), 'Blockstream') );
         }
 
         $this->head_height = intval( $latest_block );
@@ -69,14 +69,14 @@ class WC_Gateway_Nimiq_Validation_Service_Blockstream implements WC_Gateway_Nimi
 
         if ( !empty( $transaction_hash ) ) {
             if ( !ctype_xdigit( $transaction_hash ) ) {
-                return new WP_Error('service', __( 'Invalid transaction hash.', 'wc-gateway-nimiq' ) );
+                return new WP_Error('service', __( 'Invalid transaction hash.', 'wc-gateway-fyfy' ) );
             }
         }
 
         $recipient_address = Order_Utils::get_order_recipient_address( $order, $gateway );
         // TODO: Use https://github.com/LinusU/php-bitcoin-address-validator for Bitcoin address validation
         // if ( !AddressValidator::isValid( $recipient_address, AddressValidator::TESTNET_PUBKEY ) ) {
-        //     return new WP_Error('service', __( 'Invalid merchant address.', 'wc-gateway-nimiq' ) );
+        //     return new WP_Error('service', __( 'Invalid merchant address.', 'wc-gateway-fyfy' ) );
         // }
 
         $head_height = $this->blockchain_height();
@@ -174,7 +174,7 @@ class WC_Gateway_Nimiq_Validation_Service_Blockstream implements WC_Gateway_Nimi
     public function error() {
         if ( empty( $this->transaction ) ) {
             /* translators: %s: Blockchain monitoring service */
-            return sprintf( __( 'Could not retrieve transaction information from %s.', 'wc-gateway-nimiq' ), 'Blockstream' );
+            return sprintf( __( 'Could not retrieve transaction information from %s.', 'wc-gateway-fyfy' ), 'Blockstream' );
         }
         return $this->transaction->error || false;
     }
@@ -285,4 +285,4 @@ class WC_Gateway_Nimiq_Validation_Service_Blockstream implements WC_Gateway_Nimi
     }
 }
 
-$services['btc'] = new WC_Gateway_Nimiq_Validation_Service_Blockstream( $gateway );
+$services['btc'] = new WC_Gateway_Fyfy_Validation_Service_Blockstream( $gateway );

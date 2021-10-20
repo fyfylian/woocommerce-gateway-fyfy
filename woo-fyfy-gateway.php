@@ -1,30 +1,31 @@
 <?php
 /**
- * Plugin Name: Nimiq Cryptocurrency Checkout
- * Plugin URI: https://github.com/nimiq/woocommerce-gateway-nimiq
- * Description: Let customers pay with Bitcoin, Ethereum and Nimiq
- * Author: Nimiq
- * Author URI: https://nimiq.com
+ * Plugin Name: FYFY Pay Checkout
+ * Plugin URI: https://github.com/fyfylian/woocommerce-gateway-fyfy
+ * Description: Let customers pay with Bitcoin, Ethereum and Fyfy
+ * Author: Fyfy.io
+ * Author URI: https://fyfy.io
  * Version: 3.3.1
- * Text Domain: wc-gateway-nimiq
+ * Text Domain: wc-gateway-fyfy
  * Domain Path: /languages
  * Requires at least: 4.9
  * Tested up to: 5.6
  * WC requires at least: 3.5
  * WC tested up to: 4.9
  *
- * Copyright: (c) 2018-2019 Nimiq Network Ltd., 2015-2016 SkyVerge, Inc. and WooCommerce
+ * Copyright: (c) 2021 FYFY.IO / FYFY Network Ltd., and WooCommerce
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
- * @package   WC-Gateway-Nimiq
- * @author    Nimiq
+ * @package   WC-Gateway-Fyfy
+ * @author    Fyfy
  * @category  Admin
- * @copyright Copyright (c) 2018-2019 Nimiq Network Ltd., 2015-2016 SkyVerge, Inc. and WooCommerce
+ * @copyright Copyright (c) 2021 FYFY.IO / FYFY Network Ltd., and WooCommerce
+ *
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
- * This Nimiq gateway forks the WooCommerce core "Cheque" payment gateway to create another payment method.
+ * This Fyfy gateway forks the WooCommerce core "Cheque" payment gateway to create another payment method.
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -33,7 +34,7 @@ defined( 'ABSPATH' ) or exit;
 // Make sure WooCommerce is active
 if ( !in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 	function nq_show_no_woocommerce_warning() {
-		echo '<div class="notice notice-error"><p>'. __( 'To use <strong>Nimiq Cryptocurrency Checkout</strong>, you must have WooCommerce installed!', 'wc-gateway-nimiq' ) .'</p></div>';
+		echo '<div class="notice notice-error"><p>'. __( 'To use <strong>Fyfy Pay Checkout</strong>, you must have WooCommerce installed!', 'wc-gateway-fyfy' ) .'</p></div>';
 	}
 	add_action( 'admin_notices', 'nq_show_no_woocommerce_error' );
 	return;
@@ -42,27 +43,27 @@ if ( !in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', 
 // Make sure the shop is running on PHP >= 7.1
 if ( !defined('PHP_VERSION_ID') || PHP_VERSION_ID < 70100 ) {
 	function nq_show_insufficient_php_version_error() {
-		echo '<div class="notice notice-error"><p>'. __( 'To use <strong>Nimiq Cryptocurrency Checkout</strong>, you need to use PHP >= 7.1.', 'wc-gateway-nimiq' ) .'</p></div>';
+		echo '<div class="notice notice-error"><p>'. __( 'To use <strong>Fyfy Pay Checkout</strong>, you need to use PHP >= 7.1.', 'wc-gateway-fyfy' ) .'</p></div>';
 	}
 	add_action( 'admin_notices', 'nq_show_insufficient_php_version_error' );
 	return;
 }
 
-// Include NIM currency
-include_once( plugin_dir_path( __FILE__ ) . 'includes/nimiq_currency.php' );
+// Include FYFY currency
+include_once( plugin_dir_path( __FILE__ ) . 'includes/fyfy_currency.php' );
 
-$woo_nimiq_has_fiat = get_option( 'woocommerce_currency' ) !== 'NIM';
+$woo_fyfy_has_fiat = get_option( 'woocommerce_currency' ) !== 'FYFY';
 
 // Extra checks when shop is using a FIAT currency
-if ( $woo_nimiq_has_fiat ) {
-	$woo_nimiq_has_https    = (!empty($_SERVER[ 'HTTPS' ]) && $_SERVER[ 'HTTPS' ] !== 'off') || $_SERVER[ 'SERVER_PORT' ] === 443;
-	$woo_nimiq_is_localhost = strpos($_SERVER['HTTP_HOST'], 'localhost') !== false;
+if ( $woo_fyfy_has_fiat ) {
+	$woo_fyfy_has_https    = (!empty($_SERVER[ 'HTTPS' ]) && $_SERVER[ 'HTTPS' ] !== 'off') || $_SERVER[ 'SERVER_PORT' ] === 443;
+	$woo_fyfy_is_localhost = strpos($_SERVER['HTTP_HOST'], 'localhost') !== false;
 
 	// Make sure the shop is on HTTPS
-	if ( !( $woo_nimiq_has_https || $woo_nimiq_is_localhost ) ) {
+	if ( !( $woo_fyfy_has_https || $woo_fyfy_is_localhost ) ) {
 		function nq_show_no_https_error() {
 			/* translators: %s: Email address */
-			echo '<div class="notice notice-error"><p>'. __( 'To use <strong>Nimiq Cryptocurrency Checkout</strong>, your store must run under HTTPS (SSL encrypted).', 'wc-gateway-nimiq' ) . '</p><em>' . sprintf( __( 'If you believe this error is a mistake, contact us at %s.', 'wc-gateway-nimiq' ), '<a href="mailto:info@nimiq.com">info@nimiq.com</a>' ) .'</em></p></div>';
+			echo '<div class="notice notice-error"><p>'. __( 'To use <strong>Fyfy Pay Checkout</strong>, your store must run under HTTPS (SSL encrypted).', 'wc-gateway-fyfy' ) . '</p><em>' . sprintf( __( 'If you believe this error is a mistake, contact us at %s.', 'wc-gateway-fyfy' ), '<a href="mailto:info@fyfy.com">info@fyfy.com</a>' ) .'</em></p></div>';
 		}
 		add_action( 'admin_notices', 'nq_show_no_https_error' );
 		return;
@@ -70,17 +71,17 @@ if ( $woo_nimiq_has_fiat ) {
 
 	// Make sure the shop is using a supported currency
 	// $fastspot_currencies = [ 'usd', 'eur' ]; // Already contained in Coingecko array
-	// https://api.coingecko.com/api/v3/simple/supported_vs_currencies + 'nim'
+	// https://api.coingecko.com/api/v3/simple/supported_vs_currencies + 'fyfy'
 	$supported_exchange_currencies = [ 'btc', 'eth', 'ltc', 'bch', 'bnb', 'eos', 'xrp', 'xlm', 'usd', 'aed', 'ars', 'aud', 'bdt', 'bhd', 'bmd', 'brl', 'cad', 'chf', 'clp', 'cny', 'czk', 'dkk', 'eur', 'gbp', 'hkd', 'huf', 'idr', 'ils', 'inr', 'jpy', 'krw', 'kwd', 'lkr', 'mmk', 'mxn', 'myr', 'nok', 'nzd', 'php', 'pkr', 'pln', 'rub', 'sar', 'sek', 'sgd', 'thb', 'try', 'twd', 'uah', 'vef', 'vnd', 'zar', 'xdr', 'xag', 'xau' ];
 
-	$supported_exchange_currencies[] = 'nim';
+	$supported_exchange_currencies[] = 'fyfy';
 
 	if ( !in_array( strtolower( get_option( 'woocommerce_currency' ) ), $supported_exchange_currencies ) ) {;
 		function nq_show_currency_not_supported_error() {
 			echo '<div class="notice notice-error"><p>'
-				. __( 'Your store uses a currency that is currently not supported by the <strong>Nimiq Cryptocurrency Checkout</strong>.', 'wc-gateway-nimiq' )
+				. __( 'Your store uses a currency that is currently not supported by the <strong>Fyfy Pay Checkout</strong>.', 'wc-gateway-fyfy' )
 				. ' <a href="https://api.coingecko.com/api/v3/simple/supported_vs_currencies">'
-				. __( 'Find out which currencies are supported.', 'wc-gateway-nimiq' )
+				. __( 'Find out which currencies are supported.', 'wc-gateway-fyfy' )
 				. '</a></p></div>';
 		}
 		add_action( 'admin_notices', 'nq_show_currency_not_supported_error' );
@@ -98,13 +99,13 @@ add_filter('acf/settings/remove_wp_meta_box', '__return_false');
  *
  * @since 1.0.0
  * @param array $gateways all available WC gateways
- * @return array $gateways all WC gateways + Nimiq gateway
+ * @return array $gateways all WC gateways + Fyfy gateway
  */
-function wc_nimiq_add_to_gateways( $gateways ) {
-	$gateways[] = 'WC_Gateway_Nimiq';
+function wc_fyfy_add_to_gateways( $gateways ) {
+	$gateways[] = 'WC_Gateway_Fyfy';
 	return $gateways;
 }
-add_filter( 'woocommerce_payment_gateways', 'wc_nimiq_add_to_gateways' );
+add_filter( 'woocommerce_payment_gateways', 'wc_fyfy_add_to_gateways' );
 
 
 /**
@@ -114,47 +115,47 @@ add_filter( 'woocommerce_payment_gateways', 'wc_nimiq_add_to_gateways' );
  * @param array $links all plugin links
  * @return array $links all plugin links + our custom links (i.e., "Settings")
  */
-function wc_nimiq_gateway_plugin_links( $links ) {
+function wc_fyfy_gateway_plugin_links( $links ) {
 
 	$plugin_links = array(
-		'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=checkout&section=nimiq_gateway' ) . '">' . __( 'Settings', 'wc-gateway-nimiq' ) . '</a>'
+		'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=checkout&section=fyfy_gateway' ) . '">' . __( 'Settings', 'wc-gateway-fyfy' ) . '</a>'
 	);
 
 	return array_merge( $plugin_links, $links );
 }
-add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'wc_nimiq_gateway_plugin_links' );
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'wc_fyfy_gateway_plugin_links' );
 
 
 // We load the plugin later to ensure WC is loaded first since we're extending it.
-add_action( 'plugins_loaded', 'wc_nimiq_gateway_init', 11 );
+add_action( 'plugins_loaded', 'wc_fyfy_gateway_init', 11 );
 
 /**
  * Initializes plugin
  *
  * @since 1.0.0
  */
-function wc_nimiq_gateway_init() {
+function wc_fyfy_gateway_init() {
 
-	class WC_Gateway_Nimiq extends WC_Payment_Gateway {
+	class WC_Gateway_Fyfy extends WC_Payment_Gateway {
 
 		/**
 		 * Constructor for the gateway.
 		 */
 		public function __construct() {
 
-			$this->id                 = 'nimiq_gateway';
+			$this->id                 = 'fyfy_gateway';
 			$this->has_fields         = true;
-			$this->method_title       = __( 'Nimiq Cryptocurrency Checkout', 'wc-gateway-nimiq' );
-			$this->method_description = __( 'Receive payments in Bitcoin, Ethereum, and Nimiq. If you would like to be guided through the setup process, follow <a href="https://nimiq.github.io/tutorials/wordpress-payment-plugin-installation">this tutorial.</a>', 'wc-gateway-nimiq' );
+			$this->method_title       = __( 'Fyfy Pay Checkout', 'wc-gateway-fyfy' );
+			$this->method_description = __( 'Receive payments in Bitcoin, Ethereum, and Fyfy. If you would like to be guided through the setup process, follow <a href="https://fyfy.github.io/tutorials/wordpress-payment-plugin-installation">this tutorial.</a>', 'wc-gateway-fyfy' );
 
 			$this->DEFAULTS = [
 				'margin' => 0,
 				'validation_interval' => 5,
-				'fee_nim' => 1,
+				'fee_fyfy' => 1,
 				'fee_btc' => 40,
 				'fee_eth' => 8,
 				'tx_wait_duration' => 120, // 2 hours
-				'confirmations_nim' => 10, // ~ 10 minutes
+				'confirmations_fyfy' => 10, // ~ 10 minutes
 				'confirmations_btc' => 2,  // ~ 20 minutes
 				'confirmations_eth' => 45, // ~ 10 minutes
 			];
@@ -170,19 +171,19 @@ function wc_nimiq_gateway_init() {
 			$this->crypto_manager = new Crypto_Manager( $this );
 
 			// Define display texts
-			$this->title       = __( 'Nimiq Cryptocurrency Checkout', 'wc-gateway-nimiq' );
+			$this->title       = __( 'Fyfy Pay Checkout', 'wc-gateway-fyfy' );
 			$cfd = $this->get_currencies_for_description();
 			$this->description = count( $cfd ) === 1
 				/* translators: %s: Cryptocurrency name */
-				? sprintf( __( 'Pay with %s.', 'wc-gateway-nimiq' ), $cfd[ 0 ] )
+				? sprintf( __( 'Pay with %s.', 'wc-gateway-fyfy' ), $cfd[ 0 ] )
 				/* translators: %1$s: Two cryptocurrency names separated by comma, %2$s: Cryptocurrency name */
-				: sprintf( __( 'Pay with %1$s or %2$s.', 'wc-gateway-nimiq' ), $cfd[ 0 ], $cfd[ 1 ] );
+				: sprintf( __( 'Pay with %1$s or %2$s.', 'wc-gateway-fyfy' ), $cfd[ 0 ], $cfd[ 1 ] );
 
 			// Actions
 			add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 			add_action( 'before_woocommerce_pay', array ($this, 'add_payment_button'));
 			add_action( 'woocommerce_thankyou_' . $this->id, array( $this, 'add_instructions' ) );
-			add_action( 'woocommerce_api_wc_gateway_nimiq', array( $this, 'handle_payment_response' ) );
+			add_action( 'woocommerce_api_wc_gateway_fyfy', array( $this, 'handle_payment_response' ) );
 			add_action( 'admin_notices', array( $this, 'do_settings_check' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_settings_script' ) );
 
@@ -190,7 +191,7 @@ function wc_nimiq_gateway_init() {
 			add_action( 'woocommerce_email_before_order_table', array( $this, 'email_instructions' ), 10, 3 );
 
 			// Add style, so it can be loaded in the header of the page
-			wp_enqueue_style('NimiqPayment', plugin_dir_url( __FILE__ ) . 'styles.css');
+			wp_enqueue_style('FyfyPayment', plugin_dir_url( __FILE__ ) . 'styles.css');
 		}
 
 		/**
@@ -205,7 +206,7 @@ function wc_nimiq_gateway_init() {
 
 			// Widths of the source icons
 			$WIDTHS = [
-				'nim' => 26,
+				'fyfy' => 26,
 				'btc' => 26,
 				'eth' => 18,
 			];
@@ -219,11 +220,11 @@ function wc_nimiq_gateway_init() {
 			}, 0 ) + $SPACING * ( count( $currencies ) - 1 );
 
 			$offsets = [
-				'nim' => 0,
-				'btc' => $WIDTHS[ 'nim' ] + $SPACING,
+				'fyfy' => 0,
+				'btc' => $WIDTHS[ 'fyfy' ] + $SPACING,
 				'eth' => in_array( 'btc', $currencies )
-					? $WIDTHS[ 'nim' ] + $WIDTHS[ 'btc' ] + $SPACING * 2
-					: $WIDTHS[ 'nim' ] + $SPACING,
+					? $WIDTHS[ 'fyfy' ] + $WIDTHS[ 'btc' ] + $SPACING * 2
+					: $WIDTHS[ 'fyfy' ] + $SPACING,
 			];
 
 			$alt = implode( ', ', array_map( function( $crypto ) {
@@ -238,15 +239,15 @@ function wc_nimiq_gateway_init() {
 			 * - all slashes in attributes (/) must be %2F
 			 */
 
-			$defs = "<radialGradient id='nimiq-radial-gradient' cx='-166.58' cy='275.96' r='1.06' gradientTransform='matrix(-24.62, 0, 0, 21.78, -4075.39, -5984.84)' gradientUnits='userSpaceOnUse'><stop offset='0' stop-color='%23ec991c'/><stop offset='1' stop-color='%23e9b213'/></radialGradient>";
+			$defs = "<radialGradient id='fyfy-radial-gradient' cx='-166.58' cy='275.96' r='1.06' gradientTransform='matrix(-24.62, 0, 0, 21.78, -4075.39, -5984.84)' gradientUnits='userSpaceOnUse'><stop offset='0' stop-color='%23ec991c'/><stop offset='1' stop-color='%23e9b213'/></radialGradient>";
 
-			$logo_nimiq = "<path fill='url(%23nimiq-radial-gradient)' d='M25.71,12.92,20.29,3.58A2.16,2.16,0,0,0,18.42,2.5H7.58A2.15,2.15,0,0,0,5.71,3.58L.29,12.92a2.14,2.14,0,0,0,0,2.16l5.42,9.34A2.15,2.15,0,0,0,7.58,25.5H18.42a2.16,2.16,0,0,0,1.87-1.08l5.42-9.34A2.14,2.14,0,0,0,25.71,12.92Z'/>";
+			$logo_fyfy = "<path fill='url(%23fyfy-radial-gradient)' d='M25.71,12.92,20.29,3.58A2.16,2.16,0,0,0,18.42,2.5H7.58A2.15,2.15,0,0,0,5.71,3.58L.29,12.92a2.14,2.14,0,0,0,0,2.16l5.42,9.34A2.15,2.15,0,0,0,7.58,25.5H18.42a2.16,2.16,0,0,0,1.87-1.08l5.42-9.34A2.14,2.14,0,0,0,25.71,12.92Z'/>";
 
 			$logo_bitcoin = in_array( 'btc', $currencies ) ? "<g transform='translate(" . $offsets[ 'btc' ] . " 0)'><path fill='%23f7931a' d='M25.61,17.15A13,13,0,1,1,16.14,1.39,13,13,0,0,1,25.61,17.15Z'/><path fill='%23fff' d='M18.73,12.15c.26-1.73-1.06-2.66-2.86-3.28l.59-2.35L15,6.17l-.57,2.28-1.14-.27.57-2.3-1.42-.35-.59,2.34L11,7.66h0L9,7.16,8.63,8.68s1,.24,1,.26a.77.77,0,0,1,.67.83l-.67,2.67s0,0,0,0l-.94,3.74a.52.52,0,0,1-.65.34s-1-.26-1-.26l-.7,1.63,1.85.46,1,.27L8.61,21l1.42.35L10.62,19l1.14.29-.59,2.34L12.6,22l.59-2.36c2.43.46,4.26.27,5-1.93a2.5,2.5,0,0,0-1.31-3.46A2.26,2.26,0,0,0,18.73,12.15Zm-3.26,4.57c-.44,1.77-3.42.81-4.39.57l.79-3.14C12.83,14.39,15.93,14.87,15.47,16.72Zm.44-4.6c-.4,1.61-2.88.79-3.69.59l.71-2.84C13.74,10.07,16.33,10.44,15.91,12.12Z'/></g>" : "";
 
 			$logo_ethereum = in_array( 'eth', $currencies ) ? "<g transform='translate(" . $offsets[ 'eth' ] . " 0)'><path class='cls-1' d='M9,21v7l9-12.08Z'/><path d='M9,10.36v9l9-5.09Z'/><path fill='%232f3030' d='M9,0V10.37l9,3.9Z'/><path fill='%23828384' d='M9,21v7L0,15.92Z'/><path fill='%23343535' d='M9,10.36v9L0,14.27Z'/><path fill='%23828384' d='M9,0V10.37l-9,3.9Z'/></g>" : "";
 
-			$icon_src = "data:image/svg+xml,<svg xmlns='http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' width='" . $image_width . "' height='28' viewBox='0 0 " . $image_width . " 28'><defs>" . $defs . "</defs>" . $logo_nimiq . $logo_bitcoin . $logo_ethereum . "</svg>";
+			$icon_src = "data:image/svg+xml,<svg xmlns='http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' width='" . $image_width . "' height='28' viewBox='0 0 " . $image_width . " 28'><defs>" . $defs . "</defs>" . $logo_fyfy . $logo_bitcoin . $logo_ethereum . "</svg>";
 
 			return '<img src="' . $icon_src . '" alt="' . $alt . '">';
 		}
@@ -256,7 +257,7 @@ function wc_nimiq_gateway_init() {
 
 			// Widths of the source icons
 			$WIDTHS = [
-				'nim' => 25,
+				'fyfy' => 25,
 				'btc' => 24,
 				'eth' => 15,
 			];
@@ -270,11 +271,11 @@ function wc_nimiq_gateway_init() {
 			}, 0 ) + $SPACING * ( count( $currencies ) - 1 );
 
 			$offsets = [
-				'nim' => 0,
-				'btc' => $WIDTHS[ 'nim' ] + $SPACING,
+				'fyfy' => 0,
+				'btc' => $WIDTHS[ 'fyfy' ] + $SPACING,
 				'eth' => in_array( 'btc', $currencies )
-					? $WIDTHS[ 'nim' ] + $WIDTHS[ 'btc' ] + $SPACING * 2
-					: $WIDTHS[ 'nim' ] + $SPACING,
+					? $WIDTHS[ 'fyfy' ] + $WIDTHS[ 'btc' ] + $SPACING * 2
+					: $WIDTHS[ 'fyfy' ] + $SPACING,
 			];
 
 			$alt = implode( ', ', array_map( function( $crypto ) {
@@ -289,13 +290,13 @@ function wc_nimiq_gateway_init() {
 			 * - all slashes in attributes (/) must be %2F
 			 */
 
-			$logo_nimiq = "<path transform='translate(0 1)' d='M24.71,10,19.51,1a2.09,2.09,0,0,0-1.8-1H7.29a2.09,2.09,0,0,0-1.8,1L.29,10A2,2,0,0,0,.29,12L5.49,21a2.09,2.09,0,0,0,1.8,1H17.71a2.09,2.09,0,0,0,1.8-1L24.71,12A2,2,0,0,0,24.71,10Z'/>";
+			$logo_fyfy = "<path transform='translate(0 1)' d='M24.71,10,19.51,1a2.09,2.09,0,0,0-1.8-1H7.29a2.09,2.09,0,0,0-1.8,1L.29,10A2,2,0,0,0,.29,12L5.49,21a2.09,2.09,0,0,0,1.8,1H17.71a2.09,2.09,0,0,0,1.8-1L24.71,12A2,2,0,0,0,24.71,10Z'/>";
 
 			$logo_bitcoin = in_array( 'btc', $currencies ) ? "<path transform='translate(" . $offsets[ 'btc' ] . " 0)' d='M9.1,23.64A12,12,0,1,0,.36,9.1,12,12,0,0,0,9.1,23.64ZM14.65,7.27c1.67.57,2.88,1.43,2.64,3h0a2.09,2.09,0,0,1-1.68,1.93,2.31,2.31,0,0,1,1.21,3.19c-.71,2-2.4,2.2-4.64,1.78l-.55,2.18-1.31-.32.53-2.16-1-.27-.54,2.16L8,18.47l.54-2.19-2.65-.67L6.5,14.1s1,.26,1,.24A.49.49,0,0,0,8.06,14L9.53,8.1a.7.7,0,0,0-.61-.77S8,7.1,8,7.1l.36-1.41L11,6.35l.54-2.16,1.31.32L12.3,6.63l1,.25.53-2.1,1.31.32Zm-4.16,7.84c1.07.28,3.42.9,3.8-.6h0c.38-1.53-1.9-2-3-2.29L11,12.14,10.23,15Zm1-4.24c.9.24,2.85.77,3.19-.6h0c.35-1.39-1.55-1.81-2.48-2l-.27-.06-.65,2.63Z'/>" : "";
 
 			$logo_ethereum = in_array( 'eth', $currencies ) ? "<g transform='translate(" . $offsets[ 'eth' ] . " 0)'><path opacity='.7' d='M7.24.18v15.39l6.8-4.04L7.25.18z'/><path opacity='.5' d='M7.23.18L.43 11.53l6.8 4.04V.18z'/><path opacity='.7' d='M7.24 16.87v5.6l6.81-9.64-6.81 4.04z'/><path opacity='.5' d='M7.23 22.46v-5.6l-6.8-4.03 6.8 9.63z'/><path d='M7.24 15.57l6.8-4.05-6.8-3.1v7.15z'/><path opacity='.6' d='M.43 11.52l6.8 4.05V8.42l-6.8 3.1z'/></g>" : "";
 
-			$icon_src = "data:image/svg+xml,<svg xmlns='http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' fill='%23fff' width='" . $image_width . "' height='24' viewBox='0 0 " . $image_width . " 24'>" . $logo_nimiq . $logo_bitcoin . $logo_ethereum . "</svg>";
+			$icon_src = "data:image/svg+xml,<svg xmlns='http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' fill='%23fff' width='" . $image_width . "' height='24' viewBox='0 0 " . $image_width . " 24'>" . $logo_fyfy . $logo_bitcoin . $logo_ethereum . "</svg>";
 
 			return '<img src="' . $icon_src . '" alt="' . $alt . '">';
 		}
@@ -325,7 +326,7 @@ function wc_nimiq_gateway_init() {
 		public function init_form_fields() {
 			// include_once() does not work here, as when saving the settings the file needs to be included twice
 			include( plugin_dir_path( __FILE__ ) . 'settings.php' );
-			$this->form_fields = $woo_nimiq_checkout_settings;
+			$this->form_fields = $woo_fyfy_checkout_settings;
 		}
 
 		public function get_payment_request( $order_id ) {
@@ -352,19 +353,19 @@ function wc_nimiq_gateway_init() {
 				'appName' => get_bloginfo( 'name' ) ?: 'Shop',
 				'shopLogoUrl' => $this->get_option( 'shop_logo_url' )
 					?: get_site_icon_url()
-					?: get_site_url() . '/wp-content/plugins/woocommerce-gateway-nimiq/assets/icon.svg',
+					?: get_site_url() . '/wp-content/plugins/woocommerce-gateway-fyfy/assets/icon.svg',
 			];
 
-			if ( $order_currency === 'NIM') {
-				$order->update_meta_data( 'order_crypto_currency', 'nim' );
-				$order->update_meta_data( 'order_total_nim', $order_total );
+			if ( $order_currency === 'FYFY') {
+				$order->update_meta_data( 'order_crypto_currency', 'fyfy' );
+				$order->update_meta_data( 'order_total_fyfy', $order_total );
 
-				// Use NimiqCheckoutRequest (version 1)
+				// Use FyfyCheckoutRequest (version 1)
 				$request = array_merge( $request, [
 					'version' => 1,
 					'recipient' => Order_Utils::get_order_recipient_address( $order, $this ),
 					'value' => intval( Order_Utils::get_order_total_crypto( $order ) ),
-					'fee' => $fees[ 'nim' ],
+					'fee' => $fees[ 'fyfy' ],
 					'extraData' => $tx_message,
 				] );
 			} else {
@@ -381,7 +382,7 @@ function wc_nimiq_gateway_init() {
 				} else {
 					$price_service = $this->get_option( 'price_service' );
 					include_once( dirname( __FILE__ ) . '/price_services/' . $price_service . '.php' );
-					$class = 'WC_Gateway_Nimiq_Price_Service_' . ucfirst( $price_service );
+					$class = 'WC_Gateway_Fyfy_Price_Service_' . ucfirst( $price_service );
 					$price_service = new $class( $this );
 
 					$accepted_cryptos = $this->crypto_manager->get_accepted_cryptos();
@@ -416,7 +417,7 @@ function wc_nimiq_gateway_init() {
 						$order_totals_crypto = Crypto_Manager::format_quotes( $effective_order_total, $quotes );
 					}
 					else {
-						return new WP_Error( 'service',  __( 'Cryptocurrency Checkout is temporarily not available. Please try reloading this page. (Issue: price service did not return any pricing information.)', 'wc-gateway-nimiq' ));
+						return new WP_Error( 'service',  __( 'Pay Checkout is temporarily not available. Please try reloading this page. (Issue: price service did not return any pricing information.)', 'wc-gateway-fyfy' ));
 					}
 
 					$fees = array_key_exists( 'fees', $pricing_info )
@@ -447,7 +448,7 @@ function wc_nimiq_gateway_init() {
 					$order->update_meta_data( 'checkout_csrf_token', $csrf_token );
 
 					// Generate callback URL
-					$callback_url = $this->get_nimiq_callback_url( 'nimiq_checkout_callback', $order_id );
+					$callback_url = $this->get_fyfy_callback_url( 'fyfy_checkout_callback', $order_id );
 
 					// Use MultiCurrencyCheckoutRequest (version 2)
 					$payment_options = [];
@@ -464,9 +465,9 @@ function wc_nimiq_gateway_init() {
 							'feePerByte' => $fee_per_byte,
 						];
 
-						if ( $crypto === 'nim' ) {
+						if ( $crypto === 'fyfy' ) {
 							$protocolSpecific[ 'extraData' ] = $tx_message;
-							$protocolSpecific[ 'recipient' ] = Order_Utils::get_order_recipient_addresses( $order, $this )[ 'nim' ];
+							$protocolSpecific[ 'recipient' ] = Order_Utils::get_order_recipient_addresses( $order, $this )[ 'fyfy' ];
 						}
 
 						$payment_option = [
@@ -535,7 +536,7 @@ function wc_nimiq_gateway_init() {
 			$description = $this->get_description();
 			if ( $description ) {
 				echo wpautop( wptexturize( $description ) );
-				echo '<p><a href="https://nimiq.com" class="about_nimiq" target="_blank">' . esc_html__( 'What is Nimiq?', 'wc-gateway-nimiq' ) . '</a></p>';
+				echo '<p><a href="https://fyfy.com" class="about_fyfy" target="_blank">' . esc_html__( 'What is Fyfy?', 'wc-gateway-fyfy' ) . '</a></p>';
 			}
 		}
 
@@ -560,22 +561,22 @@ function wc_nimiq_gateway_init() {
 			// These scripts are enqueued at the end of the page
 			wp_enqueue_script('HubApi', plugin_dir_url( __FILE__ ) . 'js/HubApi.standalone.umd.js', [], $this->version(), true );
 
-			wp_register_script( 'NimiqCheckout', plugin_dir_url( __FILE__ ) . 'js/checkout.js', [ 'jquery', 'HubApi' ], $this->version(), true );
-			wp_localize_script( 'NimiqCheckout', 'CONFIG', array(
-				'HUB_URL'      => $this->get_option( 'network' ) === 'main' ? 'https://hub.nimiq.com' : 'https://hub.nimiq-testnet.com',
+			wp_register_script( 'FyfyCheckout', plugin_dir_url( __FILE__ ) . 'js/checkout.js', [ 'jquery', 'HubApi' ], $this->version(), true );
+			wp_localize_script( 'FyfyCheckout', 'CONFIG', array(
+				'HUB_URL'      => $this->get_option( 'network' ) === 'main' ? 'https://hub.fyfy.io' : 'https://hub.fyfy-testnet.io',
 				'RPC_BEHAVIOR' => $this->get_option( 'rpc_behavior' ),
 				'REQUEST'      => json_encode( $request ),
 			) );
-			wp_enqueue_script( 'NimiqCheckout' );
+			wp_enqueue_script( 'FyfyCheckout' );
 
-			$submitUrl = $this->get_option( 'rpc_behavior' ) === 'popup' ? $this->get_nimiq_hub_return_url( $order_id ) : '';
+			$submitUrl = $this->get_option( 'rpc_behavior' ) === 'popup' ? $this->get_fyfy_hub_return_url( $order_id ) : '';
 			?>
-			<form id="pay_with_nimiq" method="POST" action="<?php echo $submitUrl; ?>">
-				<div id="nim_gateway_info_block">
+			<form id="pay_with_fyfy" method="POST" action="<?php echo $submitUrl; ?>">
+				<div id="fyfy_gateway_info_block">
 					<?php if ( $this->get_option( 'rpc_behavior' ) === 'popup' ) { ?>
 						<noscript>
 							<strong>
-								<?php _e( 'Javascript is required to pay with cryptocurrency. Please activate Javascript to continue.', 'wc-gateway-nimiq' ); ?>
+								<?php _e( 'Javascript is required to pay with cryptocurrency. Please activate Javascript to continue.', 'wc-gateway-fyfy' ); ?>
 							</strong>
 						</noscript>
 
@@ -594,18 +595,18 @@ function wc_nimiq_gateway_init() {
 						<?php wp_nonce_field( 'woocommerce-pay', 'woocommerce-pay-nonce' ); ?>
 					<?php } ?>
 
-					<button type="submit" class="button" id="nim_pay_button">
+					<button type="submit" class="button" id="fyfy_pay_button">
 						<span><?php
 							/* translators: Used on the payment button: "PAY WITH <crypto icons>" */
-							_e( 'PAY WITH', 'wc-gateway-nimiq' );
+							_e( 'PAY WITH', 'wc-gateway-fyfy' );
 						?></span>
 						<?php echo $this->get_mono_icon( $monocolor = true ); ?>
 					</button>
 				</div>
 
-				<div id="nim_payment_received_block" class="hidden">
+				<div id="fyfy_payment_received_block" class="hidden">
 					<i class="fas fa-check-circle" style="color: seagreen;"></i>
-					<?php _e( 'Payment received', 'wc-gateway-nimiq' ); ?>
+					<?php _e( 'Payment received', 'wc-gateway-fyfy' ); ?>
 				</div>
 			</form>
 			<?php
@@ -639,7 +640,7 @@ function wc_nimiq_gateway_init() {
 			$status = $this->get_param( 'status', $response );
 			if ( $status !== 'OK' ) {
 				/* translators: %s: Error message */
-				wc_add_notice( sprintf( __( 'Nimiq Payment failed. (%s).', 'wc-gateway-nimiq' ), __( 'Response code not "OK"', 'wc-gateway-nimiq' ) ), 'error' );
+				wc_add_notice( sprintf( __( 'Fyfy Payment failed. (%s).', 'wc-gateway-fyfy' ), __( 'Response code not "OK"', 'wc-gateway-fyfy' ) ), 'error' );
 				return false;
 			}
 
@@ -648,10 +649,10 @@ function wc_nimiq_gateway_init() {
 			try {
 				$result = json_decode( $result );
 			} catch (Exception $e) {
-				wc_add_notice( sprintf( __( 'Nimiq Payment failed. (%s).', 'wc-gateway-nimiq' ), __( 'Could not decode Hub result', 'wc-gateway-nimiq' ) ) . '[' . $e->getMessage(). ']', 'error' );
+				wc_add_notice( sprintf( __( 'Fyfy Payment failed. (%s).', 'wc-gateway-fyfy' ), __( 'Could not decode Hub result', 'wc-gateway-fyfy' ) ) . '[' . $e->getMessage(). ']', 'error' );
 			}
 			if ( empty( $result ) ) {
-				wc_add_notice( sprintf( __( 'Nimiq Payment failed. (%s).', 'wc-gateway-nimiq' ), __( 'Hub result is empty', 'wc-gateway-nimiq' ) ), 'error' );
+				wc_add_notice( sprintf( __( 'Fyfy Payment failed. (%s).', 'wc-gateway-fyfy' ), __( 'Hub result is empty', 'wc-gateway-fyfy' ) ), 'error' );
 				return false;
 			}
 
@@ -659,22 +660,22 @@ function wc_nimiq_gateway_init() {
 
 			$currency = Order_Utils::get_order_currency( $order, false );
 
-			if ( $currency === 'nim' ) {
+			if ( $currency === 'fyfy' ) {
 				$transaction_hash = $result->hash;
-				$customer_nim_address = $result->raw->sender;
+				$customer_fyfy_address = $result->raw->sender;
 
 				if ( !$transaction_hash ) {
-					wc_add_notice( __( 'You need to confirm the Nimiq payment first.', 'wc-gateway-nimiq' ), 'error' );
+					wc_add_notice( __( 'You need to confirm the Fyfy payment first.', 'wc-gateway-fyfy' ), 'error' );
 					return false;
 				}
 
 				if ( strlen( $transaction_hash) !== 64 ) {
-					wc_add_notice( __( 'Invalid transaction hash.', 'wc-gateway-nimiq' ) . ' (' . $transaction_hash . '). ' . __( 'Please contact support with this error message.', 'wc-gateway-nimiq' ), 'error' );
+					wc_add_notice( __( 'Invalid transaction hash.', 'wc-gateway-fyfy' ) . ' (' . $transaction_hash . '). ' . __( 'Please contact support with this error message.', 'wc-gateway-fyfy' ), 'error' );
 					return false;
 				}
 
 				$order->update_meta_data( 'transaction_hash', $transaction_hash );
-				$order->update_meta_data( 'customer_nim_address', $customer_nim_address );
+				$order->update_meta_data( 'customer_fyfy_address', $customer_fyfy_address );
 				$order->save();
 
 				return true;
@@ -723,16 +724,16 @@ function wc_nimiq_gateway_init() {
 				if ( $this->get_option( 'rpc_behavior' ) === 'redirect' ) {
 					// Redirect to Hub for payment
 
-					$target = $this->get_option( 'network' ) === 'main' ? 'https://hub.nimiq.com' : 'https://hub.nimiq-testnet.com';
+					$target = $this->get_option( 'network' ) === 'main' ? 'https://hub.fyfy.io' : 'https://hub.fyfy-testnet.io';
 					$id = 42;
-					$returnUrl = $this->get_nimiq_hub_return_url( $order_id );
+					$returnUrl = $this->get_fyfy_hub_return_url( $order_id );
 					$command = 'checkout';
 					$args = [ $this->get_payment_request( $order_id ) ];
 					$responseMethod = 'http-post';
 
-					include_once( plugin_dir_path( __FILE__ ) . 'nimiq-utils/RpcUtils.php' );
+					include_once( plugin_dir_path( __FILE__ ) . 'fyfy-utils/RpcUtils.php' );
 
-					$url = Nimiq\Utils\RpcUtils::prepareRedirectInvocation(
+					$url = Fyfy\Utils\RpcUtils::prepareRedirectInvocation(
 						$target,
 						$id,
 						$returnUrl,
@@ -755,7 +756,7 @@ function wc_nimiq_gateway_init() {
 			}
 
 			// Mark as on-hold (we're awaiting transaction validation)
-			$order->update_status( 'on-hold', __( 'Waiting for transaction to be validated.', 'wc-gateway-nimiq' ) );
+			$order->update_status( 'on-hold', __( 'Waiting for transaction to be validated.', 'wc-gateway-fyfy' ) );
 
 			// Return thank-you redirect
 			return array(
@@ -766,20 +767,20 @@ function wc_nimiq_gateway_init() {
 
 		public function do_settings_check() {
 			if( $this->enabled === "yes" ) {
-				$this->do_store_nim_address_check();
+				$this->do_store_fyfy_address_check();
 			}
 
 			$this->display_errors();
 		}
 
-		// Check if the store NIM address is set and show admin notice otherwise
-		public function do_store_nim_address_check() {
-			if( empty( $this->get_option( 'nimiq_address' ) ) ) {
-				$plugin_settings_url = admin_url( 'admin.php?page=wc-settings&tab=checkout&section=nimiq_gateway' );
+		// Check if the store FYFY address is set and show admin notice otherwise
+		public function do_store_fyfy_address_check() {
+			if( empty( $this->get_option( 'fyfy_address' ) ) ) {
+				$plugin_settings_url = admin_url( 'admin.php?page=wc-settings&tab=checkout&section=fyfy_gateway' );
 				echo '<div class="error notice"><p>'
-					. __( 'You must fill in your store\'s Nimiq address to be able to accept payments in NIM.', 'wc-gateway-nimiq' )
+					. __( 'You must fill in your store\'s Fyfy address to be able to accept payments in FYFY.', 'wc-gateway-fyfy' )
 					. ' <a href="' . $plugin_settings_url . '">'
-					. __( 'Set your Nimiq address here.', 'wc-gateway-nimiq' )
+					. __( 'Set your Fyfy address here.', 'wc-gateway-fyfy' )
 					. '</a>'
 				. '</p></div>';
 			}
@@ -793,8 +794,8 @@ function wc_nimiq_gateway_init() {
 		 */
 		public function enqueue_admin_settings_script( $hook ) {
 			if ( $hook !== 'woocommerce_page_wc-settings' ) return;
-			wp_enqueue_style( 'NimiqSettings', plugin_dir_url( __FILE__ ) . 'css/settings.css', [], $this->version());
-			wp_enqueue_script( 'NimiqSettings', plugin_dir_url( __FILE__ ) . 'js/settings.js', [ 'jquery' ], $this->version(), true );
+			wp_enqueue_style( 'FyfySettings', plugin_dir_url( __FILE__ ) . 'css/settings.css', [], $this->version());
+			wp_enqueue_script( 'FyfySettings', plugin_dir_url( __FILE__ ) . 'js/settings.js', [ 'jquery' ], $this->version(), true );
 		}
 
 		public function validate_shop_logo_url_field( $key, $value ) {
@@ -806,12 +807,12 @@ function wc_nimiq_gateway_init() {
 
 			if ( !isset( $parsed_shop_url[ 'scheme' ] ) || !isset( $parsed_shop_url[ 'host' ] ) ) {
 				// Comparison impossible
-				$this->add_error( 'Cannot validate Shop Logo URL because your Wordpress Site URL is not set or invalid.', 'wc-gateway-nimiq' );
+				$this->add_error( 'Cannot validate Shop Logo URL because your WordPress Site URL is not set or invalid.', 'wc-gateway-fyfy' );
 				return $value;
 			}
 
 			if ( !isset( $parsed_logo_url[ 'scheme' ] ) || !isset( $parsed_logo_url[ 'host' ] ) ) {
-				$this->add_error( 'Invalid Shop Logo URL.', 'wc-gateway-nimiq' );
+				$this->add_error( 'Invalid Shop Logo URL.', 'wc-gateway-fyfy' );
 				return;
 			}
 
@@ -823,7 +824,7 @@ function wc_nimiq_gateway_init() {
 				. ( isset($parsed_logo_url[ 'port' ]) ? ':' . $parsed_logo_url[ 'port' ] : '' );
 
 			if ( $shop_origin !== $logo_origin ) {
-				$this->add_error( 'The Shop Logo must be hosted on the same domain as the shop.', 'wc-gateway-nimiq' );
+				$this->add_error( 'The Shop Logo must be hosted on the same domain as the shop.', 'wc-gateway-fyfy' );
 				return;
 			}
 
@@ -846,13 +847,13 @@ function wc_nimiq_gateway_init() {
 			$old_value = $this->get_option( strtolower( $currency_name ) . '_xpub' );
 			if ( $value === $old_value ) return $old_value;
 
-			include_once( dirname( __FILE__ ) . '/nimiq-xpub/vendor/autoload.php' );
+			include_once( dirname( __FILE__ ) . '/fyfy-xpub/vendor/autoload.php' );
 
 			try {
-				Nimiq\XPub::fromString( $value );
+				Fyfy\XPub::fromString( $value );
 			} catch (Exception $error) {
 				/* translators: 1: Currency full name (e.g. 'Bitcoin'), 2: Setting name */
-				$this->add_error( sprintf( __( '<strong>%1$s %2$s</strong> was not saved:', 'wc-gateway-nimiq' ), $currency_name, __( 'Wallet Account Public Key', 'wc-gateway-nimiq' ) ) . ' ' . $error->getMessage() );
+				$this->add_error( sprintf( __( '<strong>%1$s %2$s</strong> was not saved:', 'wc-gateway-fyfy' ), $currency_name, __( 'Wallet Account Public Key', 'wc-gateway-fyfy' ) ) . ' ' . $error->getMessage() );
 				return $old_value;
 			}
 
@@ -862,11 +863,11 @@ function wc_nimiq_gateway_init() {
 			return $value;
 		}
 
-		private function get_nimiq_hub_return_url( $id ) {
-			return $this->get_nimiq_callback_url( 'WC_Gateway_Nimiq', $id );
+		private function get_fyfy_hub_return_url( $id ) {
+			return $this->get_fyfy_callback_url( 'WC_Gateway_Fyfy', $id );
 		}
 
-		private function get_nimiq_callback_url($action, $id) {
+		private function get_fyfy_callback_url($action, $id) {
 			// Test if the REST API is available
 			$has_rest_api = count( rest_get_server()->get_routes() ) > 0;
 			// TODO: Test by sending a request to the REST API?
@@ -878,17 +879,17 @@ function wc_nimiq_gateway_init() {
 			return admin_url('admin-ajax.php') . '?action=' . strtolower( $action ) . '&id=' . $id;
 		}
 
-	} // end WC_Gateway_Nimiq class
+	} // end WC_Gateway_Fyfy class
 
 	// Handle admin-ajax.php return URLs
-	function woo_nimiq_handle_payment_response() {
-		$gateway = new WC_Gateway_Nimiq();
+	function woo_fyfy_handle_payment_response() {
+		$gateway = new WC_Gateway_Fyfy();
 		$gateway->handle_payment_response();
 	}
-	add_action( 'wp_ajax_wc_gateway_nimiq', 'woo_nimiq_handle_payment_response' );
-	add_action( 'wp_ajax_nopriv_wc_gateway_nimiq', 'woo_nimiq_handle_payment_response' );
+	add_action( 'wp_ajax_wc_gateway_fyfy', 'woo_fyfy_handle_payment_response' );
+	add_action( 'wp_ajax_nopriv_wc_gateway_fyfy', 'woo_fyfy_handle_payment_response' );
 
-} // end wc_nimiq_gateway_init()
+} // end wc_fyfy_gateway_init()
 
 // Includes that register actions and filters and are thus self-calling
 include_once( plugin_dir_path( __FILE__ ) . 'includes/bulk_actions.php' );
